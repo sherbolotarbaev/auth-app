@@ -77,7 +77,7 @@ export function LoginForm() {
     } else if (errorStatus && errorStatus !== "403" && errorStatus !== "400") {
       router.push("/");
     }
-  }, [errorStatus]);
+  }, [errorStatus, router]);
 
   return (
     <>

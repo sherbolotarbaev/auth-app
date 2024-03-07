@@ -58,7 +58,7 @@ export function EmailVerificationForm() {
     if (isValid && code && code.length === 6 && !errors.code) {
       handleEmailVerification();
     }
-  }, [isValid, code, errors.code]);
+  }, [isValid, code, errors.code, router]);
 
   React.useEffect(() => {
     const getCookieEmail = async () => {

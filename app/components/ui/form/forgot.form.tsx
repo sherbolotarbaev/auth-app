@@ -19,7 +19,7 @@ type FormData = {
   email: string;
 };
 
-export default function ForgotForm() {
+export function ForgotForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get("next") ?? "/");

@@ -18,7 +18,7 @@ type FormData = {
   confirmPassword: string;
 };
 
-export default function ResetForm() {
+export function ResetForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = decodeURIComponent(searchParams.get("token") ?? "/");
