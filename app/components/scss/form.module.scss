@@ -35,7 +35,11 @@
       .title {
         font-size: 1.8rem;
         font-weight: 600;
-        color: var(--accent-8);
+
+        background: var(--gradient-1);
+        -webkit-background-clip: text;
+        text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
       }
 
       .info {
