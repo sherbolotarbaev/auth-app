@@ -205,7 +205,7 @@ export function LoginForm() {
                   ? "/password/forgot"
                   : `/password/forgot?next=${next}`
               }>
-              Reset password
+              Forgot Password?
             </Link>
 
             <Button load={isLoading} type="submit" disabled={!isValid}>
