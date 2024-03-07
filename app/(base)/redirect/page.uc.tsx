@@ -6,9 +6,11 @@ import scss from "@/app/components/scss/redirect.module.scss";
 
 export default function RedirectClient() {
   React.useEffect(() => {
-    window?.location?.assign(
-      decodeURIComponent(window?.location?.href?.split("to=")?.[1] || "/")
+    const redirectTo = decodeURIComponent(
+      window?.location?.href?.split("to=")?.[1] || "/"
     );
+
+    window?.location?.assign(`https://sherbolotarbaev.pro${redirectTo}`);
   }, []);
 
   return (
