@@ -23,7 +23,10 @@ interface Props {
   open?: string | URL;
   adaptive?: boolean;
   animation?: boolean;
+  size?: Size;
 }
+
+type Size = "small";
 
 type Position = {
   right: string;
@@ -52,6 +55,7 @@ export function Button({
   open,
   adaptive = false,
   animation,
+  size,
 }: Props) {
   const router = useRouter();
 
@@ -113,6 +117,7 @@ export function Button({
     adaptive && scss.adaptive,
     animation && scss.animated,
     load && scss.button_load,
+    size && scss[size],
   ]
     .filter(Boolean)
     .join(" ");
