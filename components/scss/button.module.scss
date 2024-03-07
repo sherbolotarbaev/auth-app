@@ -1,0 +1,146 @@
+.button,
+.button_load {
+  width: 100%;
+
+  cursor: pointer;
+
+  padding: 0.85rem 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+
+  background: var(--accent-8);
+  border: 0;
+  border-radius: 0.675rem;
+  outline: 1.85px solid transparent;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent-1);
+
+  transition: 0.25s;
+
+  &:hover {
+    background: #efefef;
+  }
+
+  &:active {
+    background: #d6d6d6;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+
+    color: rgba(16, 16, 16, 0.5);
+
+    &:hover,
+    &:active {
+      background: var(--accent-8);
+    }
+  }
+
+  @media (max-width: 675px) {
+    cursor: default;
+  }
+
+  .icon,
+  .load {
+    font-size: 1rem;
+  }
+
+  .load {
+    animation: rotateAnimation 0.9s infinite linear;
+
+    @keyframes rotateAnimation {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &.adaptive {
+    @media (max-width: 1205px) {
+      padding: 0.8rem 0.7rem;
+
+      font-size: 0.855rem;
+    }
+
+    @media (max-width: 875px) {
+      padding: 0.75rem 0.65rem;
+
+      font-size: 0.825rem;
+    }
+
+    @media (max-width: 675px) {
+      padding: 0.7rem 0.6rem;
+
+      font-size: 0.785rem;
+    }
+
+    @media (max-width: 555px) {
+      padding: 0.65rem 0.55rem;
+
+      font-size: 0.755rem;
+    }
+  }
+
+  &.animated {
+    &:hover {
+      gap: 0.5rem;
+    }
+  }
+
+  &.dark {
+    background: transparent;
+
+    background: var(--accent-1);
+    border: 0.8px solid var(--accent-2);
+
+    color: var(--accent-8);
+
+    &:hover {
+      background: var(--accent-1-hover);
+    }
+
+    &:active {
+      outline-color: var(--blue-color);
+    }
+
+    &.adaptive {
+      @media (max-width: 1205px) {
+        padding: 0.8rem 0.7rem;
+
+        font-size: 0.855rem;
+      }
+
+      @media (max-width: 875px) {
+        padding: 0.75rem 0.65rem;
+
+        font-size: 0.825rem;
+      }
+
+      @media (max-width: 675px) {
+        padding: 0.7rem 0.6rem;
+
+        font-size: 0.785rem;
+      }
+
+      @media (max-width: 555px) {
+        padding: 0.65rem 0.55rem;
+
+        font-size: 0.755rem;
+      }
+    }
+  }
+}
+
+.button_load {
+  cursor: not-allowed;
+
+  color: rgba(16, 16, 16, 0.5);
+}
