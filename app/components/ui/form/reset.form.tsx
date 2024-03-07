@@ -72,6 +72,14 @@ export function ResetForm() {
     <>
       <div className={scss.form_wrapper}>
         <form className={scss.form} onSubmit={handleSubmit(handleSubmitForm)}>
+          <div className={scss.text}>
+            <h2 className={scss.title}>Reset Your Password</h2>
+
+            <span className={scss.info}>
+              Enter a new secure password and press save to update your password
+            </span>
+          </div>
+
           <span
             className={
               !error
@@ -173,7 +181,7 @@ export function ResetForm() {
             </div>
 
             <Button type="submit" load={isLoading} disabled={!isValid}>
-              Submit
+              Save New Password
             </Button>
 
             <Link className={scss.link} href="/login">

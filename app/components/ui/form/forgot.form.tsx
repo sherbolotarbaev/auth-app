@@ -129,7 +129,7 @@ export function ForgotForm() {
             </div>
 
             <Button type="submit" load={isLoading}>
-              Send reset password email
+              Send Reset Email
             </Button>
 
             <Link
