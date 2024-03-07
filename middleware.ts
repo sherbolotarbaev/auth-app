@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
     try {
       const headers = new Headers();
 
-      headers.append("Cookie", `token=${encodeURIComponent(token.value)}`);
+      headers.append("cookie", `token=${encodeURIComponent(token.value)}`);
       headers.append("baseurl", `${apiUrl}`);
       headers.append("x-forwarded-for", xff);
 
