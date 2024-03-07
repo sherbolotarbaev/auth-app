@@ -3,7 +3,9 @@ type LogInRequest = {
   password: string;
 };
 
-type LogInResponse = User;
+type LogInResponse = {
+  redirectUrl: string;
+};
 
 type EmailVerificationRequest = {
   code: string;

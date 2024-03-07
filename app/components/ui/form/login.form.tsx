@@ -49,8 +49,8 @@ export function LoginForm() {
     setError(null);
 
     try {
-      await logIn(formData).unwrap();
-      router.push("/redirect");
+      const data = await logIn(formData).unwrap();
+      router.push(data.redirectUrl);
     } catch (e: any) {
       setError(e.data?.message || "Something went wrong");
       console.error(e);
