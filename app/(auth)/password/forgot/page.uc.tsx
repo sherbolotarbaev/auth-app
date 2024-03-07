@@ -1,7 +1,7 @@
 "use client";
 
-import ForgotForm from "@/components/ui/form/forgot.form";
-import styles from "@/components/scss/page.module.scss";
+import ForgotForm from "@/app/components/ui/form/forgot.form";
+import styles from "@/app/components/scss/page.module.scss";
 
 export default function ForgotClient() {
   return (

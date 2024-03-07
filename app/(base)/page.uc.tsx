@@ -1,10 +1,10 @@
 "use client";
 
-import { useGetMeQuery } from "@/redux/api/me";
+import { useGetMeQuery } from "@/app/redux/api/me";
 
-import { LogOutButton } from "@/components/ui/button";
+import { LogOutButton } from "@/app/components/ui/button";
 
-import scss from "@/components/scss/page.module.scss";
+import scss from "@/app/components/scss/page.module.scss";
 
 export default function HomeClient() {
   const { data: me, isLoading } = useGetMeQuery();

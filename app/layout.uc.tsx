@@ -1,6 +1,6 @@
 "use client";
 
-import ReduxProvider from "@/redux/provider";
+import ReduxProvider from "@/app/redux/provider";
 import { Toaster } from "sonner";
 
 interface Props {

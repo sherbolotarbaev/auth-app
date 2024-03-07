@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button/button";
 
-import { GoogleSvg } from "@/lib/svg";
+import { GoogleSvg } from "@/app/lib/svg";
 
 export function GoogleOAuthButton() {
   const OAuthUrl = new URL(

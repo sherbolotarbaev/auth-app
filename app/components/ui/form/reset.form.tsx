@@ -4,14 +4,14 @@ import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { successNotification } from "@/lib/notification";
-import { useResetPasswordMutation } from "@/redux/api/auth";
+import { successNotification } from "@/app/lib/notification";
+import { useResetPasswordMutation } from "@/app/redux/api/auth";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
-import { CloseSvg, ErrorSvg } from "@/lib/svg";
-import scss from "@/components/scss/form.module.scss";
+import { CloseSvg, ErrorSvg } from "@/app/lib/svg";
+import scss from "@/app/components/scss/form.module.scss";
 
 type FormData = {
   password: string;

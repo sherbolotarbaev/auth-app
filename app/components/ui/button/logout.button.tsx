@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 export function LogOutButton() {
   const LogOutUrl = new URL(`${process.env.NEXT_PUBLIC_API_URL}/logout`);

@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
 import { useForm } from "react-hook-form";
-import { useEmailVerificationMutation } from "@/redux/api/auth";
+import { useEmailVerificationMutation } from "@/app/redux/api/auth";
 
-import { CloseSvg, ErrorSvg } from "@/lib/svg";
-import scss from "@/components/scss/form.module.scss";
+import { CloseSvg, ErrorSvg } from "@/app/lib/svg";
+import scss from "@/app/components/scss/form.module.scss";
 
 type FormData = {
   code: string;

@@ -6,14 +6,14 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLogInMutation } from "@/redux/api/auth";
+import { useLogInMutation } from "@/app/redux/api/auth";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { GoogleOAuthButton } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
+import { GoogleOAuthButton } from "@/app/components/ui/button";
 
-import { CloseSvg, ErrorSvg } from "@/lib/svg";
-import scss from "@/components/scss/form.module.scss";
+import { CloseSvg, ErrorSvg } from "@/app/lib/svg";
+import scss from "@/app/components/scss/form.module.scss";
 
 type FormData = {
   emailOrUsername: string;

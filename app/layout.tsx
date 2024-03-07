@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 
 import RootLayoutClient from "./layout.uc";
 
-import { jetBrainsMono } from "@/lib/fonts";
-import "@/components/scss/globals.scss";
+import { jetBrainsMono } from "@/app/lib/fonts";
+import "@/app/components/scss/globals.scss";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

@@ -1,7 +1,7 @@
 "use client";
 
-import { LoginForm } from "@/components/ui/form/login.form";
-import scss from "@/components/scss/page.module.scss";
+import { LoginForm } from "@/app/components/ui/form/login.form";
+import scss from "@/app/components/scss/page.module.scss";
 
 export default function LoginClient() {
   return (

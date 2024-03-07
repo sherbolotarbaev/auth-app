@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
+
 import { useRouter } from "next/navigation";
-import { LoadSvg } from "@/lib/svg";
-import scss from "@/components/scss/button.module.scss";
+import { LoadSvg } from "@/app/lib/svg";
+
+import scss from "@/app/components/scss/button.module.scss";
 
 interface Props {
   children: React.ReactNode;
