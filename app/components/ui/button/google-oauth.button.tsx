@@ -2,7 +2,7 @@
 
 import { Button } from "@/app/components/ui/button/button";
 
-import { GoogleSvg } from "@/app/lib/svg";
+import { GoogleSvg } from "@/public/svg";
 
 export function GoogleOAuthButton() {
   const OAuthUrl = new URL(

@@ -8,7 +8,7 @@ import { getCookie } from "cookies-next";
 import { useForm } from "react-hook-form";
 import { useEmailVerificationMutation } from "@/app/redux/api/auth";
 
-import { CloseSvg, ErrorSvg } from "@/app/lib/svg";
+import { CloseSvg, ErrorSvg } from "@/public/svg";
 import scss from "@/app/components/scss/form.module.scss";
 
 type FormData = {

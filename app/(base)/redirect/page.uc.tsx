@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { LoadSvg } from "@/app/lib/svg";
+
+import { LoadSvg } from "@/public/svg";
 import scss from "@/app/components/scss/redirect.module.scss";
 
 export default function RedirectClient() {

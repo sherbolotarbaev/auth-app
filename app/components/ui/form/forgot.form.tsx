@@ -12,7 +12,7 @@ import { useForgotPasswordMutation } from "@/app/redux/api/auth";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/button";
 
-import { CloseSvg, ErrorSvg } from "@/app/lib/svg";
+import { CloseSvg, ErrorSvg } from "@/public/svg";
 import scss from "@/app/components/scss/form.module.scss";
 
 type FormData = {

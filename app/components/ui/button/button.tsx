@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useRouter } from "next/navigation";
-import { LoadSvg } from "@/app/lib/svg";
+import { LoadSvg } from "@/public/svg";
 
 import scss from "@/app/components/scss/button.module.scss";
 
@@ -71,11 +71,11 @@ export function Button({
     if (load) {
       return typeof load === "string" ? (
         <>
-          <LoadSvg className={scss.load} style={{ fill: "#fff2" }} />
+          <LoadSvg className={scss.load} />
           {load}
         </>
       ) : (
-        <LoadSvg className={scss.load} style={{ fill: "#fff" }} />
+        <LoadSvg className={scss.load} />
       );
     }
 
