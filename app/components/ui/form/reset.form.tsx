@@ -22,7 +22,9 @@ type FormData = {
 export function ResetForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = decodeURIComponent(searchParams.get("token") ?? "/");
+  const identificationToken = decodeURIComponent(
+    searchParams.get("identification_token") ?? "/"
+  );
 
   const {
     register,
@@ -53,7 +55,10 @@ export function ResetForm() {
     }
 
     try {
-      const data = await resetPassword({ token, password }).unwrap();
+      const data = await resetPassword({
+        identificationToken,
+        password,
+      }).unwrap();
       successNotification(data.message);
       router.push("/login");
     } catch (e: any) {
@@ -63,10 +68,10 @@ export function ResetForm() {
   };
 
   React.useEffect(() => {
-    if (!token && token.length === 0) {
+    if (!identificationToken && identificationToken.length === 0) {
       router.push("/password/forgot");
     }
-  }, [token, router]);
+  }, [identificationToken, router]);
 
   return (
     <>

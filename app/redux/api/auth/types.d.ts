@@ -24,7 +24,7 @@ type ForgotPasswordResponse = {
 };
 
 type ResetPasswordRequest = {
-  token: string;
+  identificationToken: string;
   password: string;
 };
 
