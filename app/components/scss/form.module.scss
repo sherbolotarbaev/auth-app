@@ -28,12 +28,15 @@
     gap: 0.85rem;
 
     .text {
+      width: 100%;
+
       display: flex;
+      align-items: center;
       flex-direction: column;
       gap: 0.55rem;
 
       .title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: 600;
 
         background: var(--gradient-1);
@@ -43,6 +46,8 @@
       }
 
       .info {
+        text-align: center;
+
         font-size: 0.815rem;
         font-weight: 300;
         color: var(--accent-5);

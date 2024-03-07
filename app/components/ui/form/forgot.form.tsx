@@ -72,7 +72,7 @@ export function ForgotForm() {
       <div className={scss.form_wrapper}>
         <form className={scss.form} onSubmit={handleSubmit(handleSubmitForm)}>
           <div className={scss.text}>
-            <h2 className={scss.title}>Reset Password</h2>
+            <h2 className={scss.title}>Reset Your Password</h2>
 
             <span className={scss.info}>
               Enter the email address you used when you joined and we will send
