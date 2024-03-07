@@ -91,31 +91,31 @@ export function LoginForm() {
             <span className={scss.info}>Log in to your account</span>
           </div>
 
+          <GoogleOAuthButton />
+
+          <div className={scss.devider}>
+            <hr />
+            <span>or</span>
+            <hr />
+          </div>
+
+          <span
+            className={
+              !error
+                ? scss.error_message
+                : `${scss.error_message} ${scss.active}`
+            }>
+            {error}
+          </span>
+
           <div className={scss.inputs_container}>
-            <GoogleOAuthButton />
-
-            <div className={scss.devider}>
-              <hr />
-              <span>or</span>
-              <hr />
-            </div>
-
-            <span
-              className={
-                !error
-                  ? scss.error_message
-                  : `${scss.error_message} ${scss.active}`
-              }>
-              {error}
-            </span>
-
             <div className={scss.input_container}>
               {errors.emailOrUsername ? (
                 <span className={scss.error}>
                   {errors.emailOrUsername.message}
                 </span>
               ) : (
-                <span className={scss.label}>Username or email address</span>
+                <span className={scss.label}>Username or Email address</span>
               )}
 
               <div className={scss.input_wrapper}>
