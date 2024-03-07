@@ -1,28 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const socialMedia = [
-  {
-    name: "github",
-    url: "https://github.com/sherbolotarbaev",
-  },
-  {
-    name: "instagram",
-    url: "https://www.instagram.com/sherbolotarbaev",
-  },
-  {
-    name: "linkedin",
-    url: "https://www.linkedin.com/in/sherbolotarbaev",
-  },
-  {
-    name: "telegram",
-    url: "https://telegram.me/sherbolotarbaev",
-  },
-  {
-    name: "twitter",
-    url: "https://twitter.com/sherbolotarbaev",
-  },
-];
-
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const url = request.nextUrl;
@@ -36,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const xff = `${request.headers.get("x-forwarded-for")?.split(",")[0]}`;
 
   if (pathname === "/redirect") {
-    return NextResponse.next();
+    return response;
   }
 
   let user: User | undefined;
@@ -104,17 +81,6 @@ export async function middleware(request: NextRequest) {
   ) {
     const redirectUrl = new URL(
       pathname !== "/" ? `/login?next=${pathname}` : "/login",
-      url
-    );
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  const isSocialMedia =
-    socialMedia.find((s) => s.name === pathname.replace("/", "")) || null;
-
-  if (isSocialMedia) {
-    const redirectUrl = new URL(
-      `/redirect?to=${decodeURIComponent(isSocialMedia.url)}`,
       url
     );
     return NextResponse.redirect(redirectUrl);
