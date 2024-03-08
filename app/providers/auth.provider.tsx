@@ -23,15 +23,6 @@ export default function AuthProvider({ children }: Readonly<Props>) {
     setCookie('email', me.email);
   }
 
-  if (
-    !me &&
-    pathname !== '/login' &&
-    pathname !== '/password/forgot' &&
-    pathname !== '/password/reset'
-  ) {
-    return redirect(redirectUrl);
-  }
-
   if (me && !me.isVerified && pathname !== '/email-verification') {
     return redirect('/email-verification');
   }
