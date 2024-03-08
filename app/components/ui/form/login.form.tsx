@@ -26,7 +26,6 @@ export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  const errorStatus = searchParams.get('error');
 
   const nextUrl = next === '/' ? '/' : `?next=${next}`;
 
@@ -70,24 +69,6 @@ export function LoginForm() {
 
     getCookieEmail();
   }, [setValue]);
-
-  React.useEffect(() => {
-    const checkStatus = () => {
-      switch (errorStatus) {
-        case '400':
-          errorNotification("User doesn't exist.");
-          break;
-        case '403':
-          errorNotification('User has been deactivated.');
-          break;
-        default:
-          router.push('/');
-          break;
-      }
-    };
-
-    checkStatus();
-  }, [errorStatus, router]);
 
   return (
     <>
