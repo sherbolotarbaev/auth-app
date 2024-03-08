@@ -24,6 +24,8 @@ export function ForgotForm() {
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get("next") ?? "/");
 
+  const nextUrl = next === "/" ? "/" : `?next=${next}`;
+
   const {
     register,
     handleSubmit,
@@ -132,9 +134,7 @@ export function ForgotForm() {
               Send Reset Email
             </Button>
 
-            <Link
-              className={scss.link}
-              href={next === "/" ? "/login" : `/login?next=${next}`}>
+            <Link className={scss.link} href={`/login${nextUrl}`}>
               Cancel
             </Link>
           </div>

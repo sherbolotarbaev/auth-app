@@ -26,6 +26,8 @@ export function LoginForm() {
   const next = decodeURIComponent(searchParams.get("next") ?? "/");
   const errorStatus = searchParams.get("error");
 
+  const nextUrl = next === "/" ? "/" : `?next=${next}`;
+
   const {
     register,
     handleSubmit,
@@ -198,19 +200,13 @@ export function LoginForm() {
               </div>
             </div>
 
-            <Link
-              className={scss.link}
-              href={
-                next === "/"
-                  ? "/password/forgot"
-                  : `/password/forgot?next=${next}`
-              }>
-              Forgot Password?
-            </Link>
-
             <Button load={isLoading} type="submit" disabled={!isValid}>
               Log in
             </Button>
+
+            <Link className={scss.link} href={`/password/forgot${nextUrl}`}>
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>
