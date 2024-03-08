@@ -1,4 +1,4 @@
-type UserRole = "USER" | "ADMIN";
+type UserRole = 'USER' | 'ADMIN';
 
 type User = {
   id: number;

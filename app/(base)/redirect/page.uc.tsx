@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { LoadSvg } from "@/public/svg";
-import scss from "@/app/components/scss/redirect.module.scss";
+import { LoadSvg } from '@/public/svg';
+import scss from '@/app/components/scss/redirect.module.scss';
 
 export default function RedirectClient() {
   React.useEffect(() => {
     const redirectTo = decodeURIComponent(
-      window?.location?.href?.split("to=")?.[1] || "/"
+      window?.location?.href?.split('to=')?.[1] || '/',
     );
 
     return () => {

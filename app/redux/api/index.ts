@@ -1,15 +1,11 @@
-import {
-  BaseQueryFn,
-  createApi,
-  fetchBaseQuery,
-} from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
   prepareHeaders: (headers) => {
     return headers;
   },
-  credentials: "include",
+  credentials: 'include',
 });
 
 const baseQueryExtended: BaseQueryFn = async (args, api, extraOptions) => {
@@ -18,10 +14,10 @@ const baseQueryExtended: BaseQueryFn = async (args, api, extraOptions) => {
 };
 
 export const api = createApi({
-  reducerPath: "api",
+  reducerPath: 'api',
   baseQuery: baseQueryExtended,
   refetchOnReconnect: true,
   refetchOnFocus: false,
-  tagTypes: ["me", "auth"],
+  tagTypes: ['me', 'auth'],
   endpoints: (builder) => ({}),
 });

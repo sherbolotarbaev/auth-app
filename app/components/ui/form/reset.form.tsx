@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { SubmitHandler, useForm } from "react-hook-form";
-import { successNotification, errorNotification } from "@/app/lib/notification";
-import { useResetPasswordMutation } from "@/app/redux/api/auth";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { successNotification, errorNotification } from '@/app/lib/notification';
+import { useResetPasswordMutation } from '@/app/redux/api/auth';
 
-import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import Link from 'next/link';
+import { Button } from '@/app/components/ui/button';
 
-import { CloseSvg, ErrorSvg } from "@/public/svg";
-import scss from "@/app/components/scss/form.module.scss";
+import { CloseSvg, ErrorSvg } from '@/public/svg';
+import scss from '@/app/components/scss/form.module.scss';
 
 type FormData = {
   password: string;
@@ -22,7 +22,7 @@ type FormData = {
 export function ResetForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const identificationToken = searchParams.get("identification_token") ?? "";
+  const identificationToken = searchParams.get('identification_token') ?? '';
 
   const {
     register,
@@ -34,11 +34,11 @@ export function ResetForm() {
 
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
 
   const handleClearInput = (name: keyof FormData) => {
-    setValue(name, "");
+    setValue(name, '');
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
@@ -54,16 +54,16 @@ export function ResetForm() {
         password,
       }).unwrap();
       successNotification(data.message);
-      router.push("/login");
+      router.push('/login');
     } catch (e: any) {
-      errorNotification(e.data?.message || "Something went wrong");
+      errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);
     }
   };
 
   React.useEffect(() => {
     if (!identificationToken || identificationToken.length === 0) {
-      router.push("/password/forgot");
+      router.push('/password/forgot');
     }
   }, [identificationToken, router]);
 
@@ -94,31 +94,28 @@ export function ResetForm() {
                 <input
                   type="password"
                   disabled={isLoading}
-                  className={
-                    isLoading ? `${scss.input} ${scss.load}` : scss.input
-                  }
+                  className={isLoading ? `${scss.input} ${scss.load}` : scss.input}
                   placeholder="Enter your new password..."
-                  {...register("password", {
-                    required: "This field is required",
+                  {...register('password', {
+                    required: 'This field is required',
                     minLength: {
                       value: 8,
-                      message: "Password must contain at least 8 characters",
+                      message: 'Password must contain at least 8 characters',
                     },
                     maxLength: {
                       value: 16,
-                      message:
-                        "Password cannot contain more than 16 characters",
+                      message: 'Password cannot contain more than 16 characters',
                     },
                   })}
                 />
 
                 <CloseSvg
                   className={scss.clear}
-                  onClick={() => handleClearInput("password")}
+                  onClick={() => handleClearInput('password')}
                   style={
                     !isLoading && password && password.length > 0
-                      ? { fontSize: "1.1rem", fill: "#fff" }
-                      : { display: "none" }
+                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      : { display: 'none' }
                   }
                 />
               </div>
@@ -138,31 +135,28 @@ export function ResetForm() {
                 <input
                   type="password"
                   disabled={isLoading}
-                  className={
-                    isLoading ? `${scss.input} ${scss.load}` : scss.input
-                  }
+                  className={isLoading ? `${scss.input} ${scss.load}` : scss.input}
                   placeholder="Confirm your new password..."
-                  {...register("confirmPassword", {
-                    required: "Please confirm your password",
+                  {...register('confirmPassword', {
+                    required: 'Please confirm your password',
                     minLength: {
                       value: 8,
-                      message: "Password must contain at least 8 characters",
+                      message: 'Password must contain at least 8 characters',
                     },
                     maxLength: {
                       value: 16,
-                      message:
-                        "Password cannot contain more than 16 characters",
+                      message: 'Password cannot contain more than 16 characters',
                     },
                   })}
                 />
 
                 <CloseSvg
                   className={scss.clear}
-                  onClick={() => handleClearInput("confirmPassword")}
+                  onClick={() => handleClearInput('confirmPassword')}
                   style={
                     !isLoading && confirmPassword && confirmPassword.length > 0
-                      ? { fontSize: "1.1rem", fill: "#fff" }
-                      : { display: "none" }
+                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      : { display: 'none' }
                   }
                 />
               </div>

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -8,11 +8,11 @@ export async function middleware(request: NextRequest) {
   const searchParams = new URLSearchParams(url.searchParams);
   const responseCookies = response.cookies;
   const requestCookies = request.cookies;
-  const next = decodeURIComponent(searchParams.get("next") ?? "/");
-  const token = requestCookies.get("token");
-  const xff = `${request.headers.get("x-forwarded-for")?.split(",")[0]}`;
+  const next = decodeURIComponent(searchParams.get('next') ?? '/');
+  const token = requestCookies.get('token');
+  const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
-  if (pathname === "/redirect") {
+  if (pathname === '/redirect') {
     return response;
   }
 
@@ -22,12 +22,12 @@ export async function middleware(request: NextRequest) {
     try {
       const headers = new Headers();
 
-      headers.append("cookie", `token=${encodeURIComponent(token.value)}`);
-      headers.append("baseurl", `${apiUrl}`);
-      headers.append("x-forwarded-for", xff);
+      headers.append('cookie', `token=${encodeURIComponent(token.value)}`);
+      headers.append('baseurl', `${apiUrl}`);
+      headers.append('x-forwarded-for', xff);
 
       const response = await fetch(`${apiUrl}/me`, {
-        method: "GET",
+        method: 'GET',
         headers,
       });
 
@@ -35,10 +35,10 @@ export async function middleware(request: NextRequest) {
 
       if (responseData.statusCode !== 401) {
         user = responseData;
-        responseCookies.set("email", responseData.email);
+        responseCookies.set('email', responseData.email);
       } else {
         requestCookies.getAll().map((cookie) => {
-          if (cookie.name !== "email") {
+          if (cookie.name !== 'email') {
             responseCookies.delete(cookie.name);
           }
         });
@@ -48,45 +48,40 @@ export async function middleware(request: NextRequest) {
 
   const isAuth = user !== undefined;
 
-  if (isAuth && !user?.isVerified && pathname !== "/email-verification") {
-    const redirectUrl = new URL("/email-verification", url);
+  if (isAuth && !user?.isVerified && pathname !== '/email-verification') {
+    const redirectUrl = new URL('/email-verification', url);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (isAuth && user?.isVerified && pathname === "/email-verification") {
-    const redirectUrl = new URL("/", url);
+  if (isAuth && user?.isVerified && pathname === '/email-verification') {
+    const redirectUrl = new URL('/', url);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (!isAuth && pathname === "/email-verification") {
-    const redirectUrl = new URL("/login", url);
+  if (!isAuth && pathname === '/email-verification') {
+    const redirectUrl = new URL('/login', url);
     return NextResponse.redirect(redirectUrl);
   }
 
   if (
     isAuth &&
-    (pathname === "/login" ||
-      pathname === "/password/forgot" ||
-      pathname === "/password/reset")
+    (pathname === '/login' ||
+      pathname === '/password/forgot' ||
+      pathname === '/password/reset')
   ) {
-    const redirectUrl = new URL(
-      `/redirect?to=${encodeURIComponent(next)}`,
-      url
-    );
+    const redirectUrl = new URL(`/redirect?to=${encodeURIComponent(next)}`, url);
     return NextResponse.redirect(redirectUrl);
   }
 
   if (
     !isAuth &&
-    pathname !== "/login" &&
-    pathname !== "/password/forgot" &&
-    pathname !== "/password/reset"
+    pathname !== '/login' &&
+    pathname !== '/password/forgot' &&
+    pathname !== '/password/reset'
   ) {
     const redirectUrl = new URL(
-      pathname !== "/"
-        ? `/login?next=${encodeURIComponent(pathname)}`
-        : "/login",
-      url
+      pathname !== '/' ? `/login?next=${encodeURIComponent(pathname)}` : '/login',
+      url,
     );
     return NextResponse.redirect(redirectUrl);
   }
@@ -95,5 +90,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!api|_next/static|favicon.ico).*)",
+  matcher: '/((?!api|_next/static|favicon.ico).*)',
 };

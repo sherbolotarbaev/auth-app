@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
-import axios from "axios";
+import { cookies } from 'next/headers';
+import axios from 'axios';
 
 const createAxiosInstance = () => {
   const instance = axios.create({
@@ -9,7 +9,7 @@ const createAxiosInstance = () => {
   });
 
   instance.interceptors.request.use(async (config) => {
-    const token = cookies().get("token");
+    const token = cookies().get('token');
 
     if (token) {
       config.headers.Cookie = `token=${encodeURIComponent(token.value)}`;

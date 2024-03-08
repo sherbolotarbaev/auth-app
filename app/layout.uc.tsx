@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import ReduxProvider from "@/app/redux/provider";
-import { Toaster } from "sonner";
+import ReduxProvider from '@/app/redux/provider';
+import { Toaster } from 'sonner';
 
 interface Props {
   children: React.ReactNode;

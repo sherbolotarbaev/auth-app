@@ -1,13 +1,13 @@
-import { api as index } from "..";
+import { api as index } from '..';
 
 const api = index.injectEndpoints({
   endpoints: (build) => ({
     getMe: build.query<GetMeResponse, GetMeRequest>({
       query: () => ({
-        url: "/me",
-        method: "GET",
+        url: '/me',
+        method: 'GET',
       }),
-      providesTags: ["me"],
+      providesTags: ['me'],
     }),
   }),
 });

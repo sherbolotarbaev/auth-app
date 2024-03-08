@@ -6,6 +6,7 @@
 - Styling: [SCSS](https://sass-lang.com/)
 
 ## Running Locally
+
 This application requires Node.js v18.17+.
 
 ```

@@ -1,4 +1,4 @@
-import RedirectClient from "./page.uc";
+import RedirectClient from './page.uc';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -6,7 +6,7 @@ interface Props {
 
 export async function generateMetadata({ searchParams }: Props) {
   return {
-    title: `Redirecting to ${searchParams.to || "..."}`,
+    title: `Redirecting to ${searchParams.to || '...'}`,
   };
 }
 

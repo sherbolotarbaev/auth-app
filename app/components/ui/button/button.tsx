@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { LoadSvg } from "@/public/svg";
-import scss from "@/app/components/scss/button.module.scss";
+import { LoadSvg } from '@/public/svg';
+import scss from '@/app/components/scss/button.module.scss';
 
 interface Props {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ interface Props {
   size?: Size;
 }
 
-type Size = "small";
+type Size = 'small';
 
 type Position = {
   right: string;
@@ -48,7 +48,7 @@ export function Button({
   icon,
   disabled = false,
   width,
-  type = "button",
+  type = 'button',
   load = false,
   onClick,
   redirect,
@@ -60,20 +60,20 @@ export function Button({
   const router = useRouter();
 
   const redirectToPage = (path: string | URL) => {
-    if (typeof path === "string") {
+    if (typeof path === 'string') {
       router.push(path);
     } else {
-      window.open(path.toString(), "_self");
+      window.open(path.toString(), '_self');
     }
   };
 
   const openTab = (path: string | URL) => {
-    window.open(path.toString(), "_blank");
+    window.open(path.toString(), '_blank');
   };
 
   const renderButtonContent = () => {
     if (load) {
-      return typeof load === "string" ? (
+      return typeof load === 'string' ? (
         <>
           <LoadSvg className={scss.load} />
           {load}
@@ -86,13 +86,13 @@ export function Button({
     return (
       <>
         {icon &&
-          icon.position === "left" &&
+          icon.position === 'left' &&
           React.cloneElement(icon.svg, {
             className: scss.icon,
           })}
         {children}
         {icon &&
-          icon.position === "right" &&
+          icon.position === 'right' &&
           React.cloneElement(icon.svg, {
             className: scss.icon,
           })}
@@ -120,15 +120,16 @@ export function Button({
     size && scss[size],
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <button
       type={type}
-      disabled={(typeof load === "boolean" && load === true) || disabled}
+      disabled={(typeof load === 'boolean' && load === true) || disabled}
       style={width ? { maxWidth: width } : undefined}
       onClick={handleClick}
-      className={buttonClassName}>
+      className={buttonClassName}
+    >
       {renderButtonContent()}
     </button>
   );

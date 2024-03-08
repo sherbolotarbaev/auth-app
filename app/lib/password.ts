@@ -1,10 +1,10 @@
 enum PasswordCheckStrength {
-  Short = "Password: Too short 😢",
-  Common = "Password: Common ☹️",
-  Weak = "Password: Weak 😕",
-  Ok = "Password: Acceptable 🙂",
-  Strong = "Password: Strong 🦾",
-  Long = "Password: Too long 😭",
+  Short = 'Password: Too short 😢',
+  Common = 'Password: Common ☹️',
+  Weak = 'Password: Weak 😕',
+  Ok = 'Password: Acceptable 🙂',
+  Strong = 'Password: Strong 🦾',
+  Long = 'Password: Too long 😭',
 }
 
 const MinimumLength = 8;
@@ -17,9 +17,7 @@ const isPasswordCommon = (password: string): boolean => {
   return commonPasswordPatterns.test(password);
 };
 
-export const checkPasswordStrength = (
-  password: string
-): PasswordCheckStrength => {
+export const checkPasswordStrength = (password: string): PasswordCheckStrength => {
   if (!password || password.length < MinimumLength) {
     return PasswordCheckStrength.Short;
   }

@@ -1,6 +1,6 @@
-import { GitHubButton } from "../components/ui/button";
+import { GitHubButton } from '../components/ui/button';
 
-import scss from "@/app/components/scss/page.module.scss";
+import scss from '@/app/components/scss/page.module.scss';
 
 interface Props {
   children: React.ReactNode;

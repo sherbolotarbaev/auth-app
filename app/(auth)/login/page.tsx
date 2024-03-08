@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import LoginClient from "./page.uc";
+import LoginClient from './page.uc';
 
 export const metadata: Metadata = {
-  title: "Log in",
+  title: 'Log in',
 };
 
 export default async function Login() {

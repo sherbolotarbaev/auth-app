@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { getCookie } from "cookies-next";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { getCookie } from 'cookies-next';
 
-import { SubmitHandler, useForm } from "react-hook-form";
-import { successNotification, errorNotification } from "@/app/lib/notification";
-import { useForgotPasswordMutation } from "@/app/redux/api/auth";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { successNotification, errorNotification } from '@/app/lib/notification';
+import { useForgotPasswordMutation } from '@/app/redux/api/auth';
 
-import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import Link from 'next/link';
+import { Button } from '@/app/components/ui/button';
 
-import { CloseSvg, ErrorSvg } from "@/public/svg";
-import scss from "@/app/components/scss/form.module.scss";
+import { CloseSvg, ErrorSvg } from '@/public/svg';
+import scss from '@/app/components/scss/form.module.scss';
 
 type FormData = {
   email: string;
@@ -22,9 +22,9 @@ type FormData = {
 export function ForgotForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = decodeURIComponent(searchParams.get("next") ?? "/");
+  const next = decodeURIComponent(searchParams.get('next') ?? '/');
 
-  const nextUrl = next === "/" ? "/" : `?next=${next}`;
+  const nextUrl = next === '/' ? '/' : `?next=${next}`;
 
   const {
     register,
@@ -36,29 +36,29 @@ export function ForgotForm() {
 
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  const email = watch("email");
+  const email = watch('email');
 
   const handleClearInput = (name: keyof FormData) => {
-    setValue(name, "");
+    setValue(name, '');
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
     try {
       const data = await forgotPassword(formData).unwrap();
       successNotification(data.message);
-      router.push(next === "/" ? "/login" : `/login?next=${next}`);
+      router.push(next === '/' ? '/login' : `/login?next=${next}`);
     } catch (e: any) {
-      errorNotification(e.data?.message || "Something went wrong");
+      errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);
     }
   };
 
   React.useEffect(() => {
     const getCookieEmail = async () => {
-      const cookieEmail = getCookie("email");
+      const cookieEmail = getCookie('email');
 
       if (cookieEmail) {
-        setValue("email", cookieEmail);
+        setValue('email', cookieEmail);
       }
     };
 
@@ -75,8 +75,8 @@ export function ForgotForm() {
             <h2 className={scss.title}>Reset Your Password</h2>
 
             <span className={scss.info}>
-              Enter the email address you used when you joined and we will send
-              you a link to reset your password.
+              Enter the email address you used when you joined and we will send you a link
+              to reset your password.
             </span>
           </div>
 
@@ -95,26 +95,24 @@ export function ForgotForm() {
                 <input
                   type="text"
                   disabled={isLoading}
-                  className={
-                    isLoading ? `${scss.input} ${scss.load}` : scss.input
-                  }
+                  className={isLoading ? `${scss.input} ${scss.load}` : scss.input}
                   placeholder="Enter your email address..."
-                  {...register("email", {
-                    required: "This field is required",
+                  {...register('email', {
+                    required: 'This field is required',
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid Email",
+                      message: 'Invalid Email',
                     },
                   })}
                 />
 
                 <CloseSvg
                   className={scss.clear}
-                  onClick={() => handleClearInput("email")}
+                  onClick={() => handleClearInput('email')}
                   style={
                     !isLoading && email && email.length > 0
-                      ? { fontSize: "1.1rem", fill: "#fff" }
-                      : { display: "none" }
+                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      : { display: 'none' }
                   }
                 />
               </div>

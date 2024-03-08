@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/app/components/ui/button/button";
+import { Button } from '@/app/components/ui/button/button';
 
-import { GitHubSvg } from "@/public/svg";
+import { GitHubSvg } from '@/public/svg';
 
 export function GitHubButton() {
   return (
@@ -12,8 +12,9 @@ export function GitHubButton() {
       open="https://github.com/sherbolotarbaev/auth-app"
       icon={{
         svg: <GitHubSvg />,
-        position: "left",
-      }}>
+        position: 'left',
+      }}
+    >
       Star on GitHub
     </Button>
   );

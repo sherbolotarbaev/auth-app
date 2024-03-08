@@ -1,14 +1,14 @@
-import { api as index } from "..";
+import { api as index } from '..';
 
 const api = index.injectEndpoints({
   endpoints: (build) => ({
     logIn: build.mutation<LogInResponse, LogInRequest>({
       query: (body) => ({
-        url: "/login",
-        method: "POST",
+        url: '/login',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["auth"],
+      invalidatesTags: ['auth'],
     }),
 
     emailVerification: build.mutation<
@@ -16,32 +16,29 @@ const api = index.injectEndpoints({
       EmailVerificationRequest
     >({
       query: (body) => ({
-        url: "/email-verification",
-        method: "POST",
+        url: '/email-verification',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["auth"],
+      invalidatesTags: ['auth'],
     }),
 
-    forgotPassword: build.mutation<
-      ForgotPasswordResponse,
-      ForgotPasswordRequest
-    >({
+    forgotPassword: build.mutation<ForgotPasswordResponse, ForgotPasswordRequest>({
       query: (body) => ({
-        url: "/password/forgot",
-        method: "POST",
+        url: '/password/forgot',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["auth"],
+      invalidatesTags: ['auth'],
     }),
 
     resetPassword: build.mutation<ResetPasswordResponse, ResetPasswordRequest>({
       query: (body) => ({
-        url: "/password/reset",
-        method: "POST",
+        url: '/password/reset',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["auth"],
+      invalidatesTags: ['auth'],
     }),
   }),
 });
