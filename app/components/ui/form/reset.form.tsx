@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { successNotification } from "@/app/lib/notification";
+import { successNotification, errorNotification } from "@/app/lib/notification";
 import { useResetPasswordMutation } from "@/app/redux/api/auth";
 
 import Link from "next/link";
@@ -36,8 +36,6 @@ export function ResetForm() {
 
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
-  const [error, setError] = React.useState<string | null>(null);
-
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
 
@@ -46,12 +44,10 @@ export function ResetForm() {
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
-    setError(null);
-
     const { password, confirmPassword } = formData;
 
     if (password !== confirmPassword) {
-      return setError(`Passwords don't match`);
+      return errorNotification(`Passwords don't match`);
     }
 
     try {
@@ -62,7 +58,7 @@ export function ResetForm() {
       successNotification(data.message);
       router.push("/login");
     } catch (e: any) {
-      setError(e.data?.message || "Something went wrong");
+      errorNotification(e.data?.message || "Something went wrong");
       console.error(e);
     }
   };
@@ -85,19 +81,13 @@ export function ResetForm() {
             </span>
           </div>
 
-          <span
-            className={
-              !error
-                ? scss.error_message
-                : `${scss.error_message} ${scss.active}`
-            }>
-            {error}
-          </span>
-
           <div className={scss.inputs_container}>
             <div className={scss.input_container}>
               {errors.password ? (
-                <span className={scss.error}>{errors.password.message}</span>
+                <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} />
+                  {errors.password.message}
+                </span>
               ) : (
                 <span className={scss.label}>Password</span>
               )}
@@ -133,14 +123,13 @@ export function ResetForm() {
                       : { display: "none" }
                   }
                 />
-
-                {errors.password && <ErrorSvg className={scss.error_icon} />}
               </div>
             </div>
 
             <div className={scss.input_container}>
               {errors.confirmPassword ? (
                 <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} />
                   {errors.confirmPassword.message}
                 </span>
               ) : (
@@ -178,10 +167,6 @@ export function ResetForm() {
                       : { display: "none" }
                   }
                 />
-
-                {errors.confirmPassword && (
-                  <ErrorSvg className={scss.error_icon} />
-                )}
               </div>
             </div>
 

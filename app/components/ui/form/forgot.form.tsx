@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getCookie } from "cookies-next";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { successNotification } from "@/app/lib/notification";
+import { successNotification, errorNotification } from "@/app/lib/notification";
 import { useForgotPasswordMutation } from "@/app/redux/api/auth";
 
 import Link from "next/link";
@@ -36,8 +36,6 @@ export function ForgotForm() {
 
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  const [error, setError] = React.useState<string | null>(null);
-
   const email = watch("email");
 
   const handleClearInput = (name: keyof FormData) => {
@@ -45,14 +43,12 @@ export function ForgotForm() {
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
-    setError(null);
-
     try {
       const data = await forgotPassword(formData).unwrap();
       successNotification(data.message);
       router.push(next === "/" ? "/login" : `/login?next=${next}`);
     } catch (e: any) {
-      setError(e.data?.message || "Something went wrong");
+      errorNotification(e.data?.message || "Something went wrong");
       console.error(e);
     }
   };
@@ -82,19 +78,13 @@ export function ForgotForm() {
             </span>
           </div>
 
-          <span
-            className={
-              !error
-                ? scss.error_message
-                : `${scss.error_message} ${scss.active}`
-            }>
-            {error}
-          </span>
-
           <div className={scss.inputs_container}>
             <div className={scss.input_container}>
               {errors.email ? (
-                <span className={scss.error}>{errors.email.message}</span>
+                <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} />
+                  {errors.email.message}
+                </span>
               ) : (
                 <span className={scss.label}>Email address</span>
               )}
@@ -125,8 +115,6 @@ export function ForgotForm() {
                       : { display: "none" }
                   }
                 />
-
-                {errors.email && <ErrorSvg className={scss.error_icon} />}
               </div>
             </div>
 

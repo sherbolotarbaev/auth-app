@@ -97,14 +97,15 @@ export function EmailVerificationForm() {
           <div className={scss.inputs_container}>
             <div className={scss.input_container}>
               {errors.code ? (
-                <span className={scss.error}>{errors.code.message}</span>
+                <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} />
+                  {errors.code.message}
+                </span>
               ) : (
                 <span className={scss.label}>Code</span>
               )}
 
               <div className={scss.input_wrapper}>
-                {errors.code && <ErrorSvg className={scss.error_icon} />}
-
                 <input
                   type="text"
                   disabled={isLoading}

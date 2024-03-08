@@ -12,7 +12,7 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
     <>
       <ReduxProvider>{children}</ReduxProvider>
 
-      <Toaster theme="light" />
+      <Toaster richColors />
     </>
   );
 }

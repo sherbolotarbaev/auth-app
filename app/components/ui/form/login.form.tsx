@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+import { errorNotification } from "@/app/lib/notification";
 import { useLogInMutation } from "@/app/redux/api/auth";
 
 import Link from "next/link";
@@ -38,8 +39,6 @@ export function LoginForm() {
 
   const [logIn, { isLoading }] = useLogInMutation();
 
-  const [error, setError] = React.useState<string | null>(null);
-
   const emailOrUsername = watch("emailOrUsername");
   const password = watch("password");
 
@@ -48,13 +47,11 @@ export function LoginForm() {
   };
 
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
-    setError(null);
-
     try {
       const data = await logIn(formData).unwrap();
       router.push(data.redirectUrl);
     } catch (e: any) {
-      setError(e.data?.message || "Something went wrong");
+      errorNotification(e.data?.message || "Something went wrong");
       console.error(e);
     }
   };
@@ -72,13 +69,23 @@ export function LoginForm() {
   }, [setValue]);
 
   React.useEffect(() => {
-    if (errorStatus && errorStatus === "400") {
-      setError("User doesn't exist.");
-    } else if (errorStatus && errorStatus === "403") {
-      setError("User has been deactivated.");
-    } else if (errorStatus && errorStatus !== "403" && errorStatus !== "400") {
-      router.push("/");
-    }
+    const checkStatus = () => {
+      if (errorStatus) {
+        let errorMessage = "";
+        if (errorStatus === "400") {
+          errorMessage = "User doesn't exist.";
+        } else if (errorStatus === "403") {
+          errorMessage = "User has been deactivated.";
+        } else if (errorStatus !== "403" && errorStatus !== "400") {
+          router.push("/");
+          return;
+        }
+
+        errorNotification(errorMessage);
+      }
+    };
+
+    checkStatus();
   }, [errorStatus, router]);
 
   return (
@@ -101,19 +108,11 @@ export function LoginForm() {
             <hr />
           </div>
 
-          <span
-            className={
-              !error
-                ? scss.error_message
-                : `${scss.error_message} ${scss.active}`
-            }>
-            {error}
-          </span>
-
           <div className={scss.inputs_container}>
             <div className={scss.input_container}>
               {errors.emailOrUsername ? (
                 <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} />
                   {errors.emailOrUsername.message}
                 </span>
               ) : (
@@ -121,10 +120,6 @@ export function LoginForm() {
               )}
 
               <div className={scss.input_wrapper}>
-                {errors.emailOrUsername && (
-                  <ErrorSvg className={scss.error_icon} />
-                )}
-
                 <input
                   type="text"
                   disabled={isLoading}
@@ -156,14 +151,14 @@ export function LoginForm() {
 
             <div className={scss.input_container}>
               {errors.password ? (
-                <span className={scss.error}>{errors.password.message}</span>
+                <span className={scss.error}>
+                  <ErrorSvg className={scss.icon} /> {errors.password.message}
+                </span>
               ) : (
                 <span className={scss.label}>Password</span>
               )}
 
               <div className={scss.input_wrapper}>
-                {errors.password && <ErrorSvg className={scss.error_icon} />}
-
                 <input
                   type="password"
                   disabled={isLoading}
