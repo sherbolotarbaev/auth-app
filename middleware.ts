@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
     try {
       const headers = new Headers();
 
-      headers.append('cookie', `token=${encodeURIComponent(token.value)}`);
+      headers.append('cookie', `token=${decodeURIComponent(token.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
@@ -69,7 +69,7 @@ export async function middleware(request: NextRequest) {
       pathname === '/password/forgot' ||
       pathname === '/password/reset')
   ) {
-    const redirectUrl = new URL(`/redirect?to=${encodeURIComponent(next)}`, url);
+    const redirectUrl = new URL(`/redirect?to=${decodeURIComponent(next)}`, url);
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -80,7 +80,7 @@ export async function middleware(request: NextRequest) {
     pathname !== '/password/reset'
   ) {
     const redirectUrl = new URL(
-      pathname !== '/' ? `/login?next=${encodeURIComponent(pathname)}` : '/login',
+      pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
       url,
     );
     return NextResponse.redirect(redirectUrl);
