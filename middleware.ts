@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
       pathname === "/password/reset")
   ) {
     const redirectUrl = new URL(
-      `/redirect?to=${decodeURIComponent(next)}`,
+      `/redirect?to=${encodeURIComponent(next)}`,
       url
     );
     return NextResponse.redirect(redirectUrl);
@@ -84,7 +84,7 @@ export async function middleware(request: NextRequest) {
   ) {
     const redirectUrl = new URL(
       pathname !== "/"
-        ? `/login?next=${decodeURIComponent(pathname)}`
+        ? `/login?next=${encodeURIComponent(pathname)}`
         : "/login",
       url
     );
