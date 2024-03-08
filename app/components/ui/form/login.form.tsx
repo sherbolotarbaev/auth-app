@@ -83,7 +83,6 @@ export function LoginForm() {
           errorMessage = 'User has been deactivated.';
         } else if (errorStatus !== '403' && errorStatus !== '400') {
           router.push('/');
-          return;
         }
 
         errorNotification(errorMessage);
