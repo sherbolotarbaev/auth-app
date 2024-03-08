@@ -56,9 +56,7 @@ export function EmailVerificationForm() {
     };
 
     if (isValid && code && code.length === 6 && !errors.code) {
-      return () => {
-        handleEmailVerification();
-      };
+      handleEmailVerification();
     }
   }, [isValid, code, errors.code, router]);
 

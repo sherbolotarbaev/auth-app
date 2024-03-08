@@ -68,30 +68,25 @@ export function LoginForm() {
       }
     };
 
-    return () => {
-      getCookieEmail();
-    };
+    getCookieEmail();
   }, [setValue]);
 
   React.useEffect(() => {
     const checkStatus = () => {
-      if (errorStatus) {
-        let errorMessage = '';
-        if (errorStatus === '400') {
-          errorMessage = "User doesn't exist.";
-        } else if (errorStatus === '403') {
-          errorMessage = 'User has been deactivated.';
-        } else if (errorStatus !== '403' && errorStatus !== '400') {
+      switch (errorStatus) {
+        case '400':
+          errorNotification("User doesn't exist.");
+          break;
+        case '403':
+          errorNotification('User has been deactivated.');
+          break;
+        default:
           router.push('/');
-        }
-
-        errorNotification(errorMessage);
+          break;
       }
     };
 
-    return () => {
-      checkStatus();
-    };
+    checkStatus();
   }, [errorStatus, router]);
 
   return (

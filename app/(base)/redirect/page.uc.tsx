@@ -11,9 +11,7 @@ export default function RedirectClient() {
       window?.location?.href?.split('to=')?.[1] || '/',
     );
 
-    return () => {
-      window?.location?.assign(`https://sherbolotarbaev.pro${redirectTo}`);
-    };
+    window?.location?.assign(`https://sherbolotarbaev.pro${redirectTo}`);
   }, []);
 
   return (
