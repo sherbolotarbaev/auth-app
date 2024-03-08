@@ -62,7 +62,9 @@ export function ForgotForm() {
       }
     };
 
-    getCookieEmail();
+    return () => {
+      getCookieEmail();
+    };
   }, [setValue]);
 
   return (

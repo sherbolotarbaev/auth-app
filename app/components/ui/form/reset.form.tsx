@@ -22,9 +22,7 @@ type FormData = {
 export function ResetForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const identificationToken = decodeURIComponent(
-    searchParams.get("identification_token") ?? "/"
-  );
+  const identificationToken = searchParams.get("identification_token") ?? "";
 
   const {
     register,
@@ -64,7 +62,7 @@ export function ResetForm() {
   };
 
   React.useEffect(() => {
-    if (!identificationToken && identificationToken.length === 0) {
+    if (!identificationToken || identificationToken.length === 0) {
       router.push("/password/forgot");
     }
   }, [identificationToken, router]);

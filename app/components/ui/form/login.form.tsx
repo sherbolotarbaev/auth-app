@@ -65,7 +65,9 @@ export function LoginForm() {
       }
     };
 
-    getCookieEmail();
+    return () => {
+      getCookieEmail();
+    };
   }, [setValue]);
 
   React.useEffect(() => {
@@ -85,7 +87,9 @@ export function LoginForm() {
       }
     };
 
-    checkStatus();
+    return () => {
+      checkStatus();
+    };
   }, [errorStatus, router]);
 
   return (
