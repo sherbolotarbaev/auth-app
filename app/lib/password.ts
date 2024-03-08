@@ -1,10 +1,10 @@
 enum PasswordCheckStrength {
-  Short = 'Password: Too short 😢',
-  Common = 'Password: Common ☹️',
-  Weak = 'Password: Weak 😕',
-  Ok = 'Password: Acceptable 🙂',
-  Strong = 'Password: Strong 🦾',
-  Long = 'Password: Too long 😭',
+  Short = 'Too short 😢',
+  Common = 'Common ☹️',
+  Weak = 'Weak 😕',
+  Ok = 'Acceptable 🙂',
+  Strong = 'Strong 🦾',
+  Long = 'Too long 😭',
 }
 
 const MinimumLength = 8;

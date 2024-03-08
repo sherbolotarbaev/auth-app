@@ -158,7 +158,9 @@ export function LoginForm() {
                   <ErrorSvg className={scss.icon} /> {errors.password.message}
                 </span>
               ) : (
-                <span className={scss.label}>{passwordStrength ?? 'Password'}</span>
+                <span className={scss.label}>
+                  {passwordStrength ? `Password: ${passwordStrength}` : 'Password'}
+                </span>
               )}
 
               <div className={scss.input_wrapper}>
