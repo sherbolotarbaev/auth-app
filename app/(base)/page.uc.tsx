@@ -10,14 +10,14 @@ import scss from '@/app/components/scss/page.module.scss';
 export default function HomeClient() {
   const { data: me, isLoading } = useGetMeQuery();
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  const redirectUrl =
-    pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login';
+  // const redirectUrl =
+  //   pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login';
 
-  if (!me) {
-    return redirect(redirectUrl);
-  }
+  // if (!me) {
+  //   return redirect(redirectUrl);
+  // }
 
   return (
     <>

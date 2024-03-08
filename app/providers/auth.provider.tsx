@@ -17,34 +17,37 @@ export default function AuthProvider({ children }: Readonly<Props>) {
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const token = decodeURIComponent(searchParams.get('token') ?? '/');
 
-  if (me) {
-    setCookie('email', me.email);
-  }
+  switch (true) {
+    case !!me && !me.isVerified && pathname !== '/email-verification':
+      redirect('/email-verification');
 
-  if (me && !me.isVerified && pathname !== '/email-verification') {
-    return redirect('/email-verification');
-  }
+    case !!me && me.isVerified && pathname === '/email-verification':
+      redirect('/');
 
-  if (me && me.isVerified && pathname === '/email-verification') {
-    return redirect('/');
-  }
+    case !me && pathname === '/email-verification':
+      redirect('/login');
 
-  if (!me && pathname === '/email-verification') {
-    return redirect('/login');
-  }
+    case !!me &&
+      (pathname === '/login' ||
+        pathname === '/password/forgot' ||
+        pathname === '/password/reset'):
+      redirect(`/redirect?to=${encodeURIComponent(next)}`);
 
-  if (
-    me &&
-    (pathname === '/login' ||
-      pathname === '/password/forgot' ||
-      pathname === '/password/reset')
-  ) {
-    return redirect(`/redirect?to=${encodeURIComponent(next)}`);
-  }
+    case !!me && pathname === '/oauth':
+      redirect(`/redirect?to=https://sherbolotarbaev.pro/redirect?token=${token}`);
 
-  if (me && pathname === '/oauth') {
-    return redirect(`/redirect?to=https://sherbolotarbaev.pro/redirect?token=${token}`);
-  }
+    case !me &&
+      pathname !== '/login' &&
+      pathname !== '/password/forgot' &&
+      pathname !== '/password/reset':
+      const redirectUrl =
+        pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login';
+      redirect(redirectUrl);
 
-  return children;
+    default:
+      if (me) {
+        setCookie('email', me.email);
+      }
+      return children;
+  }
 }
