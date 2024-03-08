@@ -16,15 +16,9 @@ export default function AuthProvider({ children }: Readonly<Props>) {
 
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const token = decodeURIComponent(searchParams.get('token') ?? '/');
-  const redirectUrl =
-    pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login';
 
   if (me) {
     setCookie('email', me.email);
-  }
-
-  if (!me) {
-    return redirect(redirectUrl);
   }
 
   if (me && !me.isVerified && pathname !== '/email-verification') {
