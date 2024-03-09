@@ -14,12 +14,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/oauth') {
     if (token) {
-      responseCookies.set('token', token, {
-        httpOnly: true,
-        sameSite: 'none',
-        // secure: process.env.NODE_ENV === 'production',
-        maxAge: 30 * 60 * 1000, // 30 minutes
-      });
+      responseCookies.set('token', token);
     }
 
     const redirectUrl = new URL('/redirect', url);
