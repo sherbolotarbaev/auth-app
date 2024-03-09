@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 
 import { useForm } from 'react-hook-form';
+import { errorNotification } from '@/app/lib/notification';
 import { useEmailVerificationMutation } from '@/app/redux/api/auth';
 
 import { CloseSvg, ErrorSvg } from '@/public/svg';
@@ -29,8 +30,6 @@ export function EmailVerificationForm() {
 
   const [emailVerification, { isLoading }] = useEmailVerificationMutation();
 
-  const [error, setError] = React.useState<string | null>(null);
-
   const code = watch('code');
 
   const handleLogout = () => {
@@ -44,13 +43,11 @@ export function EmailVerificationForm() {
 
   React.useEffect(() => {
     const handleEmailVerification = async () => {
-      setError(null);
-
       try {
         await emailVerification({ code }).unwrap();
         router.push('/redirect');
       } catch (e: any) {
-        setError(e.data?.message || 'Something went wrong');
+        errorNotification(e.data?.message || 'Something went wrong');
         console.error(e);
       }
     };
@@ -84,14 +81,6 @@ export function EmailVerificationForm() {
               your inbox.
             </span>
           </div>
-
-          <span
-            className={
-              !error ? scss.error_message : `${scss.error_message} ${scss.active}`
-            }
-          >
-            {error}
-          </span>
 
           <div className={scss.inputs_container}>
             <div className={scss.input_container}>
