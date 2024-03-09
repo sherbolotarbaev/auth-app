@@ -178,7 +178,7 @@ export function LoginForm() {
             </Link>
 
             <Link className={scss.link} href={`/register${nextUrl}`}>
-              Don't have an account? Sign up Now
+              {"Don't have an account? Sign up Now"}
             </Link>
           </div>
         </form>
