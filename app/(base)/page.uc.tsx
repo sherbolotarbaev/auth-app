@@ -19,16 +19,11 @@ export default function HomeClient() {
     router.push('/login');
   }
 
-  const redirectToPortfolio = () => {
+  if (me && !isLoading) {
     const session = getCookie('session-middleware');
-
     if (session) {
       router.push(`https://sherbolotarbaev.pro/redirect?token=${session}`);
     }
-  };
-
-  if (me && !isLoading) {
-    redirectToPortfolio();
   }
 
   return (
