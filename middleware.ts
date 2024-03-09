@@ -53,6 +53,13 @@ export async function middleware(request: NextRequest) {
 
   const isAuth = user !== undefined;
 
+  if (isAuth && pathname === '/logout') {
+    responseCookies.delete('token');
+
+    const redirectUrl = new URL('/logout', process.env.NEXT_PUBLIC_API_URL);
+    return NextResponse.redirect(redirectUrl);
+  }
+
   if (isAuth && !user?.isVerified && pathname !== '/email-verification') {
     const redirectUrl = new URL('/email-verification', url);
     return NextResponse.redirect(redirectUrl);

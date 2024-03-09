@@ -3,10 +3,8 @@
 import { Button } from '@/app/components/ui/button';
 
 export function LogOutButton() {
-  const LogOutUrl = new URL(`${process.env.NEXT_PUBLIC_API_URL}/logout`);
-
   return (
-    <Button width={120} redirect={LogOutUrl} style="dark">
+    <Button width={120} redirect="/logout" style="dark">
       Log out
     </Button>
   );
