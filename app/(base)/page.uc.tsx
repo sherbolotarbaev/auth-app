@@ -10,7 +10,7 @@ import scss from '@/app/components/scss/page.module.scss';
 export default function HomeClient() {
   const { data: me, isLoading } = useGetMeQuery();
 
-  if (!me) {
+  if (!me && !isLoading) {
     deleteCookie('session-middleware');
   }
 
