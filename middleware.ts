@@ -9,12 +9,18 @@ export async function middleware(request: NextRequest) {
   const responseCookies = response.cookies;
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  const token = searchParams.get('token');
+  const queryToken = searchParams.get('token');
+  const cookieToken = requestCookies.get('token');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
-    if (token) {
-      responseCookies.set('token', token);
+    if (queryToken) {
+      responseCookies.set('token', queryToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 30 * 60 * 1000, // 30 minutes
+      });
     }
 
     return response;
@@ -22,11 +28,11 @@ export async function middleware(request: NextRequest) {
 
   let user: User | undefined;
 
-  if (token) {
+  if (cookieToken) {
     try {
       const headers = new Headers();
 
-      headers.append('cookie', `token=${decodeURIComponent(token)}`);
+      headers.append('cookie', `token=${decodeURIComponent(cookieToken.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
