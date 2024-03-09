@@ -10,12 +10,12 @@ export async function middleware(request: NextRequest) {
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const queryToken = searchParams.get('token');
-  const session = requestCookies.get('session');
+  const session = requestCookies.get('session-middleware');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
     if (queryToken) {
-      responseCookies.set('session', queryToken);
+      responseCookies.set('session-middleware', queryToken);
     }
 
     return response;
@@ -54,7 +54,7 @@ export async function middleware(request: NextRequest) {
   const isAuth = user !== undefined;
 
   if (isAuth && pathname === '/logout') {
-    responseCookies.delete('session');
+    responseCookies.delete('session-middleware');
 
     const redirectUrl = new URL('/logout', process.env.NEXT_PUBLIC_API_URL);
     return NextResponse.redirect(redirectUrl);
