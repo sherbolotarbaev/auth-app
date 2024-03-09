@@ -10,12 +10,12 @@ export async function middleware(request: NextRequest) {
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const queryToken = searchParams.get('token');
-  const cookieToken = requestCookies.get('token');
+  const session = requestCookies.get('session');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
     if (queryToken) {
-      responseCookies.set('token', queryToken);
+      responseCookies.set('session', queryToken);
     }
 
     return response;
@@ -23,11 +23,11 @@ export async function middleware(request: NextRequest) {
 
   let user: User | undefined;
 
-  if (cookieToken) {
+  if (session) {
     try {
       const headers = new Headers();
 
-      headers.append('Authorization', `Bearer ${encodeURIComponent(cookieToken.value)}`);
+      headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
