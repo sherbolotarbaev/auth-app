@@ -24,6 +24,7 @@ export function EmailVerificationForm() {
 
   if (!me && !isLoading) {
     deleteCookie('session-middleware');
+    redirect('/login');
   }
 
   const {

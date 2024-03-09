@@ -1,7 +1,9 @@
 'use client';
 
-import { useGetMeQuery } from '@/app/redux/api/me';
+import { redirect } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
+
+import { useGetMeQuery } from '@/app/redux/api/me';
 
 import { LogOutButton } from '@/app/components/ui/button';
 
@@ -12,6 +14,7 @@ export default function HomeClient() {
 
   if (!me && !isLoading) {
     deleteCookie('session-middleware');
+    redirect('/login');
   }
 
   return (
