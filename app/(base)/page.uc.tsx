@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 
 import { useGetMeQuery } from '@/app/redux/api/me';
 
@@ -17,6 +17,18 @@ export default function HomeClient() {
   if (!me && !isLoading) {
     deleteCookie('session-middleware');
     router.push('/login');
+  }
+
+  const redirectToPortfolio = () => {
+    const session = getCookie('session-middleware');
+
+    if (session) {
+      router.push(`https://sherbolotarbaev.pro/redirect?token=${session}`);
+    }
+  };
+
+  if (me && !isLoading) {
+    redirectToPortfolio();
   }
 
   return (
