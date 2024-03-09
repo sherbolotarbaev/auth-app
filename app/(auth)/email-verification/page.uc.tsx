@@ -7,9 +7,9 @@ import scss from '@/app/components/scss/page.module.scss';
 export default function EmailVerificationClient() {
   return (
     <>
-      <section className={scss.wrapper}>
+      <div className={scss.container}>
         <EmailVerificationForm />
-      </section>
+      </div>
     </>
   );
 }
