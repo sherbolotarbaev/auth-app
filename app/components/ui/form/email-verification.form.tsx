@@ -2,11 +2,12 @@
 
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
-import { getCookie } from 'cookies-next';
+import { redirect } from 'next/navigation';
+import { deleteCookie } from 'cookies-next';
 
 import { useForm } from 'react-hook-form';
 import { errorNotification } from '@/app/lib/notification';
+import { useGetMeQuery } from '@/app/redux/api/me';
 import { useEmailVerificationMutation } from '@/app/redux/api/auth';
 
 import Link from 'next/link';
@@ -19,9 +20,11 @@ type FormData = {
 };
 
 export function EmailVerificationForm() {
-  const router = useRouter();
+  const { data: me, isLoading } = useGetMeQuery();
 
-  const [email, setEmail] = React.useState<string>('');
+  if (!me && !isLoading) {
+    deleteCookie('session-middleware');
+  }
 
   const {
     register,
@@ -30,7 +33,7 @@ export function EmailVerificationForm() {
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: 'onChange' });
 
-  const [emailVerification, { isLoading }] = useEmailVerificationMutation();
+  const [emailVerification, { isLoading: isSending }] = useEmailVerificationMutation();
 
   const code = watch('code');
 
@@ -42,7 +45,7 @@ export function EmailVerificationForm() {
     const handleEmailVerification = async () => {
       try {
         await emailVerification({ code }).unwrap();
-        router.push('/redirect');
+        redirect('/redirect');
       } catch (e: any) {
         errorNotification(e.data?.message || 'Something went wrong');
         console.error(e);
@@ -52,19 +55,7 @@ export function EmailVerificationForm() {
     if (isValid && code && code.length === 6 && !errors.code) {
       handleEmailVerification();
     }
-  }, [isValid, code, errors.code, router]);
-
-  React.useEffect(() => {
-    const getCookieEmail = async () => {
-      const cookieEmail = getCookie('email');
-
-      if (cookieEmail) {
-        setEmail(cookieEmail);
-      }
-    };
-
-    getCookieEmail();
-  }, [setValue]);
+  }, [isValid, code, errors.code, redirect]);
 
   return (
     <>
@@ -74,7 +65,7 @@ export function EmailVerificationForm() {
             <h2 className={scss.title}>Email Verification</h2>
 
             <span className={scss.info}>
-              {email} <br /> We just sent you a verification code. <br /> Please check
+              {me?.email} <br /> We just sent you a verification code. <br /> Please check
               your inbox.
             </span>
           </div>
@@ -93,8 +84,8 @@ export function EmailVerificationForm() {
               <div className={scss.input_wrapper}>
                 <input
                   type="text"
-                  disabled={isLoading}
-                  className={isLoading ? `${scss.input} ${scss.load}` : scss.input}
+                  disabled={isSending}
+                  className={isSending ? `${scss.input} ${scss.load}` : scss.input}
                   placeholder="Paste a code"
                   {...register('code', {
                     required: 'Code required',
