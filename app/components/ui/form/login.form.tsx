@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useSearchParams, redirect } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ type FormData = {
 };
 
 export function LoginForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
 
@@ -50,7 +51,7 @@ export function LoginForm() {
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
     try {
       const data = await logIn(formData).unwrap();
-      redirect(data.redirectUrl);
+      router.push(data.redirectUrl);
     } catch (e: any) {
       errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);

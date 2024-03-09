@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 
 import { useForm } from 'react-hook-form';
@@ -20,11 +20,13 @@ type FormData = {
 };
 
 export function EmailVerificationForm() {
+  const router = useRouter();
+
   const { data: me, isLoading } = useGetMeQuery();
 
   if (!me && !isLoading) {
     deleteCookie('session-middleware');
-    redirect('/login');
+    router.push('/login');
   }
 
   const {
@@ -46,7 +48,7 @@ export function EmailVerificationForm() {
     const handleEmailVerification = async () => {
       try {
         await emailVerification({ code }).unwrap();
-        redirect('/redirect');
+        router.push('/redirect');
       } catch (e: any) {
         errorNotification(e.data?.message || 'Something went wrong');
         console.error(e);
@@ -56,7 +58,7 @@ export function EmailVerificationForm() {
     if (isValid && code && code.length === 6 && !errors.code) {
       handleEmailVerification();
     }
-  }, [isValid, code, errors.code, redirect]);
+  }, [isValid, code, errors.code, router]);
 
   return (
     <>

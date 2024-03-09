@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useSearchParams, redirect } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -20,6 +20,7 @@ type FormData = {
 };
 
 export function ForgotForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
 
@@ -45,7 +46,7 @@ export function ForgotForm() {
     try {
       const data = await forgotPassword(formData).unwrap();
       successNotification(data.message);
-      redirect(next === '/' ? '/login' : `/login?next=${next}`);
+      router.push(next === '/' ? '/login' : `/login?next=${next}`);
     } catch (e: any) {
       errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);
