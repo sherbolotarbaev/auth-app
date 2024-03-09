@@ -49,7 +49,7 @@ export function Button({
   disabled = false,
   width,
   type = 'button',
-  load = false,
+  load: initialLoad = false,
   onClick,
   redirect,
   open,
@@ -59,7 +59,11 @@ export function Button({
 }: Props) {
   const router = useRouter();
 
+  const [load, setLoad] = React.useState(initialLoad);
+
   const redirectToPage = (path: string | URL) => {
+    setLoad(true);
+
     if (typeof path === 'string') {
       router.push(path);
     } else {
@@ -68,6 +72,8 @@ export function Button({
   };
 
   const openTab = (path: string | URL) => {
+    setLoad(true);
+
     window.open(path.toString(), '_blank');
   };
 
@@ -75,11 +81,17 @@ export function Button({
     if (load) {
       return typeof load === 'string' ? (
         <>
-          <LoadSvg className={scss.load} />
+          <LoadSvg
+            className={scss.load}
+            style={style === 'dark' ? { fill: '#fff' } : undefined}
+          />
           {load}
         </>
       ) : (
-        <LoadSvg className={scss.load} />
+        <LoadSvg
+          className={scss.load}
+          style={style === 'dark' ? { fill: '#fff' } : undefined}
+        />
       );
     }
 
