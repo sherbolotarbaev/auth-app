@@ -14,11 +14,15 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/oauth') {
     if (token) {
-      responseCookies.set('token', token);
+      responseCookies.set('token', token, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 30 * 60 * 1000, // 30 minutes
+      });
     }
 
-    const redirectUrl = new URL('/redirect', url);
-    return NextResponse.redirect(redirectUrl);
+    return response;
   }
 
   if (pathname === '/redirect') {
