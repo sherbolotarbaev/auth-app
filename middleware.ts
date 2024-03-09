@@ -12,21 +12,22 @@ export async function middleware(request: NextRequest) {
   const token = searchParams.get('token');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
-  if (pathname === '/redirect') {
-    return response;
-  }
-
   if (pathname === '/oauth') {
-    if (token)
+    if (token) {
       responseCookies.set('token', token, {
         httpOnly: true,
         sameSite: 'none',
-        secure: process.env.NODE_ENV === 'production',
+        // secure: process.env.NODE_ENV === 'production',
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
+    }
 
     const redirectUrl = new URL('/redirect', url);
     return NextResponse.redirect(redirectUrl);
+  }
+
+  if (pathname === '/redirect') {
+    return response;
   }
 
   let user: User | undefined;
