@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   const token = searchParams.get('token');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
-  if (pathname === '/oauth') {
+  if (pathname === '/redirect') {
     if (token) {
       responseCookies.set('token', token, {
         httpOnly: true,
@@ -22,10 +22,6 @@ export async function middleware(request: NextRequest) {
       });
     }
 
-    return response;
-  }
-
-  if (pathname === '/redirect') {
     return response;
   }
 
