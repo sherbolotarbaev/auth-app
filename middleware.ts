@@ -77,7 +77,8 @@ export async function middleware(request: NextRequest) {
     isAuth &&
     (pathname === '/login' ||
       pathname === '/password/forgot' ||
-      pathname === '/password/reset')
+      pathname === '/password/reset' ||
+      pathname === '/register')
   ) {
     const redirectUrl = new URL(`/redirect?to=${decodeURIComponent(next)}`, url);
     return NextResponse.redirect(redirectUrl);
@@ -87,7 +88,8 @@ export async function middleware(request: NextRequest) {
     !isAuth &&
     pathname !== '/login' &&
     pathname !== '/password/forgot' &&
-    pathname !== '/password/reset'
+    pathname !== '/password/reset' &&
+    pathname !== '/register'
   ) {
     const redirectUrl = new URL(
       pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',

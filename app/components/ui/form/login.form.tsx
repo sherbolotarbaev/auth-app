@@ -7,7 +7,6 @@ import { getCookie } from 'cookies-next';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { errorNotification } from '@/app/lib/notification';
-import { checkPasswordStrength } from '@/app/lib/password';
 import { useLogInMutation } from '@/app/redux/api/auth';
 
 import Link from 'next/link';
@@ -38,8 +37,6 @@ export function LoginForm() {
   } = useForm<FormData>();
 
   const [logIn, { isLoading }] = useLogInMutation();
-
-  const [passwordStrength, setPasswordStrength] = React.useState<string | null>(null);
 
   const emailOrUsername = watch('emailOrUsername');
   const password = watch('password');
@@ -133,9 +130,7 @@ export function LoginForm() {
                   <ErrorSvg className={scss.icon} /> {errors.password.message}
                 </span>
               ) : (
-                <span className={scss.label}>
-                  {passwordStrength ? `Password: ${passwordStrength}` : 'Password'}
-                </span>
+                <span className={scss.label}>Password</span>
               )}
 
               <div className={scss.input_wrapper}>
@@ -158,12 +153,6 @@ export function LoginForm() {
                     maxLength: {
                       value: 16,
                       message: 'Password cannot contain more than 16 characters',
-                    },
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      setPasswordStrength(checkPasswordStrength(e.target.value));
-                    },
-                    onBlur: () => {
-                      setPasswordStrength(null);
                     },
                   })}
                 />
@@ -188,11 +177,9 @@ export function LoginForm() {
               Forgot Password?
             </Link>
 
-            <div className={scss.text}>
-              <span className={scss.info}>
-                By logging in, you agree to our Privacy Policy and Terms of Service.
-              </span>
-            </div>
+            <Link className={scss.link} href={`/register${nextUrl}`}>
+              Don't have an account? Sign up Now
+            </Link>
           </div>
         </form>
       </div>

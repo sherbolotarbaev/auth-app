@@ -11,6 +11,15 @@ const api = index.injectEndpoints({
       invalidatesTags: ['auth'],
     }),
 
+    signup: build.mutation<RegisterResponse, RegisterRequest>({
+      query: (body) => ({
+        url: '/register',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['auth'],
+    }),
+
     emailVerification: build.mutation<
       EmailVerificationResponse,
       EmailVerificationRequest
@@ -45,6 +54,7 @@ const api = index.injectEndpoints({
 
 export const {
   useLogInMutation,
+  useSignupMutation,
   useEmailVerificationMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,

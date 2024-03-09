@@ -7,6 +7,17 @@ type LogInResponse = {
   redirectUrl: string;
 };
 
+type RegisterRequest = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
+
+type RegisterResponse = {
+  redirectUrl: string;
+};
+
 type EmailVerificationRequest = {
   code: string;
 };
