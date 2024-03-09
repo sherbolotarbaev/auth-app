@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { errorNotification } from '@/app/lib/notification';
 import { useEmailVerificationMutation } from '@/app/redux/api/auth';
 
+import Link from 'next/link';
+
 import { CloseSvg, ErrorSvg } from '@/public/svg';
 import scss from '@/app/components/scss/form.module.scss';
 
@@ -31,11 +33,6 @@ export function EmailVerificationForm() {
   const [emailVerification, { isLoading }] = useEmailVerificationMutation();
 
   const code = watch('code');
-
-  const handleLogout = () => {
-    const LogOutUrl = new URL(`${process.env.NEXT_PUBLIC_API_URL}/logout`);
-    window.open(LogOutUrl.toString(), '_self');
-  };
 
   const handleClearInput = (name: keyof FormData) => {
     setValue(name, '');
@@ -128,9 +125,9 @@ export function EmailVerificationForm() {
               </div>
             </div>
 
-            <span className={scss.link} onClick={handleLogout}>
+            <Link className={scss.link} href="/logout">
               Back to Log in
-            </span>
+            </Link>
           </div>
         </form>
       </div>
