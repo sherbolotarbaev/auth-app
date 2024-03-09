@@ -55,6 +55,7 @@ export async function middleware(request: NextRequest) {
 
   if (isAuth && pathname === '/logout') {
     responseCookies.delete('token');
+    responseCookies.delete('token');
 
     const redirectUrl = new URL('/logout', process.env.NEXT_PUBLIC_API_URL);
     return NextResponse.redirect(redirectUrl);
