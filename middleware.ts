@@ -15,12 +15,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/redirect') {
     if (queryToken) {
-      responseCookies.set('token', queryToken, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 30 * 60 * 1000, // 30 minutes
-      });
+      responseCookies.set('token', queryToken);
     }
 
     return response;
