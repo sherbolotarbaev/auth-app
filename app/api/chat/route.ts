@@ -14,13 +14,13 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
-  const token = request.cookies.get('token')?.value || '';
+  const session = request.cookies.get('session-middleware')?.value || '';
 
   if (!OPEN_AI_SECRET_KEY) {
     return new Response('Missing ENV: OPEN_AI_SECRET_KEY', { status: 400 });
   }
 
-  const isAuth = await authenticate(token, xff);
+  const isAuth = await authenticate(session, xff);
 
   if (!isAuth) {
     return new Response('Unauthorized', { status: 401 });
@@ -51,10 +51,10 @@ export async function POST(request: NextRequest) {
   return new StreamingTextResponse(stream);
 }
 
-async function authenticate(token: string, xff: string) {
+async function authenticate(session: string, xff: string) {
   try {
     const headers = new Headers();
-    headers.append('Authorization', `Bearer ${decodeURIComponent(token)}`);
+    headers.append('Authorization', `Bearer ${decodeURIComponent(session)}`);
     headers.append('baseurl', API_URL!);
     headers.append('x-forwarded-for', xff);
 

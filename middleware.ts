@@ -9,24 +9,25 @@ export async function middleware(request: NextRequest) {
   const responseCookies = response.cookies;
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  const token = requestCookies.get('token');
+  const queryToken = searchParams.get('token');
+  const session = requestCookies.get('session-middleware');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
-  // if (pathname === '/redirect') {
-  //   if (queryToken) {
-  //     responseCookies.set('session-middleware', queryToken);
-  //   }
+  if (pathname === '/redirect') {
+    if (queryToken) {
+      responseCookies.set('session-middleware', queryToken);
+    }
 
-  //   return response;
-  // }
+    return response;
+  }
 
   let user: User | undefined;
 
-  if (token) {
+  if (session) {
     try {
       const headers = new Headers();
 
-      headers.append('Authorization', `Bearer ${decodeURIComponent(token.value)}`);
+      headers.append('Authorization', `Bearer ${decodeURIComponent(session.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
