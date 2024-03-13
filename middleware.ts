@@ -22,10 +22,6 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  if (!token) {
-    responseCookies.delete('session-middleware');
-  }
-
   let user: User | undefined;
 
   if (session) {
