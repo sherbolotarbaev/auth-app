@@ -6,10 +6,9 @@ export async function getMe(_req: GetMeRequest): Promise<User | 401 | undefined>
   if (!cookies().get('token')) return;
 
   try {
-    const response = await axios({ url: '/me', method: 'GET' });
+    const response = await axios.get('/me');
     return response.data;
   } catch (error: any) {
-    cookies().delete('session-middleware');
     return 401;
   }
 }
