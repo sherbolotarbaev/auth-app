@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     try {
       const headers = new Headers();
 
-      headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
+      headers.append('Authorization', `Bearer ${decodeURIComponent(session.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 

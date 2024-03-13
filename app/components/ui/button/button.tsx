@@ -59,10 +59,11 @@ export function Button({
 }: Props) {
   const router = useRouter();
 
-  const [loading, setLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isDisabled, setIsDisabled] = React.useState(false);
 
   const redirectToPage = (path: string | URL) => {
-    setLoading(true);
+    setIsLoading(true);
 
     if (typeof path === 'string') {
       router.push(path);
@@ -72,13 +73,13 @@ export function Button({
   };
 
   const openTab = (path: string | URL) => {
-    setLoading(true);
+    setIsLoading(true);
 
     window.open(path.toString(), '_blank');
   };
 
   const renderButtonContent = () => {
-    if (load || loading) {
+    if (load || isLoading) {
       return typeof load === 'string' ? (
         <>
           <LoadSvg
@@ -125,10 +126,10 @@ export function Button({
   const buttonClassName = [
     scss.button,
     style && scss[style],
-    disabled && scss.disabled,
+    (disabled || isDisabled) && scss.disabled,
     adaptive && scss.adaptive,
     animation && scss.animated,
-    load && scss.button_load,
+    (load || isLoading) && scss.button_load,
     size && scss[size],
   ]
     .filter(Boolean)

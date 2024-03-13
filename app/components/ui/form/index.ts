@@ -1,5 +1,5 @@
-export { LoginForm } from './login.form';
-export { RegisterForm } from './register.form';
-export { EmailVerificationForm } from './email-verification.form';
-export { ForgotForm } from './forgot.form';
-export { ResetForm } from './reset.form';
+export * from './login.form';
+export * from './register.form';
+export * from './email-verification.form';
+export * from './forgot.form';
+export * from './reset.form';

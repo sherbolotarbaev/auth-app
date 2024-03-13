@@ -1,0 +1,133 @@
+.conversation {
+  width: 100%;
+
+  max-width: 1000px;
+
+  padding: 0 1.15rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.85rem;
+
+  .faqs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+
+    .faq {
+      cursor: pointer;
+
+      padding: 0.45rem 0.65rem;
+
+      background: var(--accent-1);
+      border: 0.8px solid var(--accent-2);
+      border-radius: 2rem;
+
+      font-size: 1.075rem;
+
+      @media (max-width: 1205px) {
+        font-size: 1.05rem;
+      }
+
+      @media (max-width: 875px) {
+        cursor: default;
+
+        font-size: 0.955rem;
+      }
+
+      @media (max-width: 675px) {
+        font-size: 0.875rem;
+      }
+
+      @media (max-width: 555px) {
+        font-size: 0.825rem;
+      }
+
+      @media (max-width: 475px) {
+        font-size: 0.765rem;
+      }
+    }
+  }
+
+  .form {
+    width: 100%;
+    height: 100%;
+
+    max-width: 1000px;
+
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+
+    padding: 0.65rem 0.85rem;
+
+    background: var(--bg-main);
+    border: 0.8px solid var(--accent-2);
+    border-radius: 1.031rem;
+
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      .icon {
+        font-size: 1.25rem;
+
+        cursor: pointer;
+
+        &.disabled {
+          cursor: not-allowed;
+        }
+
+        &.load {
+          cursor: default;
+
+          animation: rotateAnimation 0.9s infinite linear;
+
+          @keyframes rotateAnimation {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .editor {
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  .text {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .error {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #fff;
+
+      a {
+        color: #27ff6f;
+        text-decoration: underline;
+      }
+    }
+  }
+}

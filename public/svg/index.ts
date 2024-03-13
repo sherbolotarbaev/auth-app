@@ -4,3 +4,8 @@ export { default as ErrorSvg } from './error.svg';
 export { default as WedevxSvg } from './wedevx.svg';
 export { default as GoogleSvg } from './google.svg';
 export { default as GitHubSvg } from './github.svg';
+export { default as AiSvg } from './ai.svg';
+export { default as UserSvg } from './user.svg';
+export { default as MicrophoneSvg } from './microphone.svg';
+export { default as SendSvg } from './send.svg';
+export { default as StopSvg } from './stop.svg';

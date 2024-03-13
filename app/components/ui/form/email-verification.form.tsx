@@ -24,10 +24,12 @@ export function EmailVerificationForm() {
 
   const { data: me, isLoading } = useGetMeQuery();
 
-  if (!me && !isLoading) {
-    deleteCookie('session-middleware');
-    router.push('/login');
-  }
+  React.useEffect(() => {
+    if (!me && !isLoading) {
+      deleteCookie('session-middleware');
+      router.push('/login');
+    }
+  }, [me, isLoading, router]);
 
   const {
     register,

@@ -1,7 +1,9 @@
 'use client';
 
+import React from 'react';
+
 import { useRouter } from 'next/navigation';
-import { deleteCookie, getCookie } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 
 import { useGetMeQuery } from '@/app/redux/api/me';
 
@@ -14,17 +16,12 @@ export default function HomeClient() {
 
   const { data: me, isLoading } = useGetMeQuery();
 
-  if (!me && !isLoading) {
-    deleteCookie('session-middleware');
-    router.push('/login');
-  }
-
-  if (me && !isLoading) {
-    const session = getCookie('session-middleware');
-    if (session) {
-      router.push(`https://sherbolotarbaev.pro/redirect?token=${session}`);
+  React.useEffect(() => {
+    if (!me && !isLoading) {
+      deleteCookie('session-middleware');
+      router.push('/login');
     }
-  }
+  }, [me, isLoading, router]);
 
   return (
     <>

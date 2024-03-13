@@ -93,7 +93,7 @@ export function LoginForm() {
                   {errors.emailOrUsername.message}
                 </span>
               ) : (
-                <span className={scss.label}>Username or Email address</span>
+                <span className={scss.label}>Email address or username</span>
               )}
 
               <div className={scss.input_wrapper}>
@@ -101,13 +101,13 @@ export function LoginForm() {
                   type="text"
                   disabled={isLoading}
                   className={isLoading ? `${scss.input} ${scss.load}` : scss.input}
-                  placeholder="Enter your username or email address..."
+                  placeholder="Enter your email address or username..."
                   {...register('emailOrUsername', {
                     required: 'This field is required',
                     pattern: {
                       value:
                         /^(?:[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}|[a-zA-Z0-9_-]+)$/,
-                      message: 'Invalid username or email address',
+                      message: 'Invalid email address or username',
                     },
                   })}
                 />

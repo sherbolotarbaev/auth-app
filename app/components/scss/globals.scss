@@ -56,4 +56,39 @@ body {
   background: var(--bg-main);
 
   color: var(--accent-8);
+
+  .editor {
+    width: 100%;
+    height: 100%;
+
+    outline: 0;
+  }
+
+  .editor_image {
+    width: 100%;
+
+    max-width: 120px;
+
+    display: block;
+
+    margin: 0.55rem 0;
+
+    border-radius: 0.265rem;
+    filter: grayscale(20%);
+  }
+
+  .hljs-bullet {
+    color: var(--accent-5);
+  }
+
+  .tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--accent-4);
+  }
 }
