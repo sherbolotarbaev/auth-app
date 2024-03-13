@@ -94,7 +94,8 @@ export async function middleware(request: NextRequest) {
     pathname !== '/login' &&
     pathname !== '/password/forgot' &&
     pathname !== '/password/reset' &&
-    pathname !== '/register'
+    pathname !== '/register' &&
+    pathname !== '/logout'
   ) {
     const redirectUrl = new URL(
       pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
