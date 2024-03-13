@@ -11,6 +11,7 @@ export async function middleware(request: NextRequest) {
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const queryToken = searchParams.get('token');
   const session = requestCookies.get('session-middleware');
+  const token = requestCookies.get('token');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
@@ -19,6 +20,10 @@ export async function middleware(request: NextRequest) {
     }
 
     return response;
+  }
+
+  if (!token) {
+    responseCookies.delete('session-middleware');
   }
 
   let user: User | undefined;
