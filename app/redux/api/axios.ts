@@ -13,8 +13,6 @@ const createAxiosInstance = () => {
 
     if (token) {
       config.headers.Cookie = `token=${encodeURIComponent(token.value)}`;
-    } else {
-      cookies().delete('session-middleware');
     }
 
     return config;
