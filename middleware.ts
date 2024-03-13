@@ -63,6 +63,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  if (!isAuth && pathname === '/logout') {
+    const redirectUrl = new URL('/login', url);
+    return NextResponse.redirect(redirectUrl);
+  }
+
   if (isAuth && !user?.isVerified && pathname !== '/email-verification') {
     const redirectUrl = new URL('/email-verification', url);
     return NextResponse.redirect(redirectUrl);
