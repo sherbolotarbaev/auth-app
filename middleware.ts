@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
       const response = await fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers,
-        credentials: 'include',
+        // credentials: 'include',
       });
 
       const responseData = await response.json();
