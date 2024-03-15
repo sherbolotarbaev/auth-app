@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { checkPasswordStrength } from '@/app/lib/password';
@@ -24,6 +24,7 @@ type FormData = {
 };
 
 export function RegisterForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
 
@@ -53,7 +54,7 @@ export function RegisterForm() {
   const handleSubmitForm: SubmitHandler<FormData> = async (formData) => {
     try {
       const data = await signup(formData).unwrap();
-      redirect(data.redirectUrl);
+      router.push(data.redirectUrl);
     } catch (e: any) {
       errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);

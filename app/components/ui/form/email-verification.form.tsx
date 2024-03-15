@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { useForm } from 'react-hook-form';
 import { errorNotification } from '@/app/lib/notification';
@@ -19,6 +19,8 @@ type FormData = {
 };
 
 export function EmailVerificationForm() {
+  const router = useRouter();
+
   const { data: me, isLoading } = useGetMeQuery();
 
   const {
@@ -40,7 +42,7 @@ export function EmailVerificationForm() {
     const handleEmailVerification = async () => {
       try {
         await emailVerification({ code }).unwrap();
-        redirect('/redirect');
+        router.push('/redirect');
       } catch (e: any) {
         errorNotification(e.data?.message || 'Something went wrong');
         console.error(e);
@@ -50,7 +52,7 @@ export function EmailVerificationForm() {
     if (isValid && code && code.length === 6 && !errors.code) {
       handleEmailVerification();
     }
-  }, [isValid, code, errors.code, redirect]);
+  }, [isValid, code, errors.code, router]);
 
   return (
     <>

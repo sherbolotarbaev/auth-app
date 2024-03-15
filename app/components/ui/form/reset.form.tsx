@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { successNotification, errorNotification } from '@/app/lib/notification';
@@ -20,6 +20,7 @@ type FormData = {
 };
 
 export function ResetForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const identificationToken = searchParams.get('identification_token') ?? '';
 
@@ -53,7 +54,7 @@ export function ResetForm() {
         password,
       }).unwrap();
       successNotification(data.message);
-      redirect('/login');
+      router.push('/login');
     } catch (e: any) {
       errorNotification(e.data?.message || 'Something went wrong');
       console.error(e);
@@ -62,9 +63,9 @@ export function ResetForm() {
 
   React.useEffect(() => {
     if (!identificationToken || identificationToken.length === 0) {
-      redirect('/password/forgot');
+      router.push('/password/forgot');
     }
-  }, [identificationToken, redirect]);
+  }, [identificationToken, router]);
 
   return (
     <>

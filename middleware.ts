@@ -49,12 +49,6 @@ export async function middleware(request: NextRequest) {
         });
       }
     } catch (_) {}
-  } else {
-    requestCookies.getAll().map((cookie) => {
-      if (cookie.name !== 'email') {
-        responseCookies.delete(cookie.name);
-      }
-    });
   }
 
   const isAuth = user !== undefined;
