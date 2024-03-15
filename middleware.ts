@@ -14,11 +14,11 @@ export async function middleware(request: NextRequest) {
 
   let user: User | undefined;
 
-  if (session) {
+  // if (session) {
     try {
       const headers = new Headers();
 
-      headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
+      // headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
@@ -41,7 +41,7 @@ export async function middleware(request: NextRequest) {
         });
       }
     } catch (_) {}
-  }
+  // }
 
   const isAuth = user !== undefined;
 
