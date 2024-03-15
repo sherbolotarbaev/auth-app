@@ -98,12 +98,14 @@ export async function middleware(request: NextRequest) {
     pathname !== '/password/forgot' &&
     pathname !== '/password/reset' &&
     pathname !== '/register' &&
-    pathname !== '/logout'
+    pathname !== '/logout' &&
+    pathname !== '/'
   ) {
-    const redirectUrl = new URL(
-      pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
-      url,
-    );
+    // const redirectUrl = new URL(
+    //   pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
+    //   url,
+    // );
+    const redirectUrl = new URL('/login', url);
     return NextResponse.redirect(redirectUrl);
   }
 
