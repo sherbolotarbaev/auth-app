@@ -39,8 +39,6 @@ export async function middleware(request: NextRequest) {
 
       const responseData = await response.json();
 
-      responseCookies.set('status', responseData.statusCode);
-
       if (responseData.statusCode !== 401) {
         user = responseData;
         responseCookies.set('email', responseData.email);
