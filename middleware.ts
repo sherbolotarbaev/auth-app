@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
@@ -10,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   const querySession = searchParams.get('session');
-  const session = requestCookies.get('session-middleware');
+  const session = cookies().get('session');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
