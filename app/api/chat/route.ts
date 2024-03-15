@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
 async function authenticate(session: string, xff: string) {
   try {
     const headers = new Headers();
-    headers.append('Authorization', `Bearer ${decodeURIComponent(session)}`);
+    headers.append('Authorization', `Bearer ${session}`);
     headers.append('baseurl', API_URL!);
     headers.append('x-forwarded-for', xff);
 
