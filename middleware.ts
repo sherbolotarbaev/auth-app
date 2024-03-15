@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const searchParams = new URLSearchParams(url.searchParams);
   const responseCookies = response.cookies;
-  const requestCookies = request.cookies;
+  // const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
   // const querySession = searchParams.get('session');
   // const session = requestCookies.get('session');
@@ -38,6 +38,8 @@ export async function middleware(request: NextRequest) {
     });
 
     const responseData = await response.json();
+
+    responseCookies.set('status', responseData.statusCode);
 
     if (responseData.statusCode !== 401) {
       user = responseData;
