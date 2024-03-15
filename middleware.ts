@@ -27,14 +27,13 @@ export async function middleware(request: NextRequest) {
     try {
       const headers = new Headers();
 
-      headers.append('Authorization', `Bearer ${session}`);
+      headers.append('Authorization', `Bearer ${decodeURIComponent(session.value)}`);
       headers.append('baseurl', `${apiUrl}`);
       headers.append('x-forwarded-for', xff);
 
       const response = await fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers,
-        // credentials: 'include',
       });
 
       const responseData = await response.json();
