@@ -9,38 +9,47 @@ export async function middleware(request: NextRequest) {
   const responseCookies = response.cookies;
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  const session = requestCookies.get('session');
+  // const querySession = searchParams.get('session');
+  // const session = requestCookies.get('session');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
+
+  if (pathname === '/redirect') {
+    // if (querySession) {
+    //   responseCookies.set('session-middleware', querySession);
+    // }
+
+    return response;
+  }
 
   let user: User | undefined;
 
   // if (session) {
-    try {
-      const headers = new Headers();
+  try {
+    const headers = new Headers();
 
-      // headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
-      headers.append('baseurl', `${apiUrl}`);
-      headers.append('x-forwarded-for', xff);
+    // headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
+    headers.append('baseurl', `${apiUrl}`);
+    headers.append('x-forwarded-for', xff);
 
-      const response = await fetch(`${apiUrl}/me`, {
-        method: 'GET',
-        headers,
-        credentials: 'same-origin',
+    const response = await fetch(`${apiUrl}/me`, {
+      method: 'GET',
+      headers,
+      credentials: 'same-origin',
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.statusCode !== 401) {
+      user = responseData;
+      responseCookies.set('email', responseData.email);
+    } else {
+      requestCookies.getAll().map((cookie) => {
+        if (cookie.name !== 'email') {
+          responseCookies.delete(cookie.name);
+        }
       });
-
-      const responseData = await response.json();
-
-      if (responseData.statusCode !== 401) {
-        user = responseData;
-        responseCookies.set('email', responseData.email);
-      } else {
-        requestCookies.getAll().map((cookie) => {
-          if (cookie.name !== 'email') {
-            responseCookies.delete(cookie.name);
-          }
-        });
-      }
-    } catch (_) {}
+    }
+  } catch (_) {}
   // }
 
   const isAuth = user !== undefined;
