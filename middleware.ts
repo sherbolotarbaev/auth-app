@@ -7,10 +7,10 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const searchParams = new URLSearchParams(url.searchParams);
   const responseCookies = response.cookies;
-  // const requestCookies = request.cookies;
+  const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  // const querySession = searchParams.get('session');
-  // const session = requestCookies.get('session');
+  const querySession = searchParams.get('session');
+  const session = requestCookies.get('session');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
 
   if (pathname === '/redirect') {
@@ -23,36 +23,36 @@ export async function middleware(request: NextRequest) {
 
   let user: User | undefined;
 
-  // if (session) {
-  try {
-    const headers = new Headers();
+  if (session) {
+    try {
+      const headers = new Headers();
 
-    // headers.append('Authorization', `Bearer ${encodeURIComponent(session.value)}`);
-    headers.append('baseurl', `${apiUrl}`);
-    headers.append('x-forwarded-for', xff);
+      headers.append('Cookie', `session=${encodeURIComponent(session.value)}`);
+      headers.append('baseurl', `${apiUrl}`);
+      headers.append('x-forwarded-for', xff);
 
-    const response = await fetch(`${apiUrl}/me`, {
-      method: 'GET',
-      headers,
-      credentials: 'include',
-    });
+      const response = await fetch(`${apiUrl}/me`, {
+        method: 'GET',
+        headers,
+        credentials: 'include',
+      });
 
-    const responseData = await response.json();
+      const responseData = await response.json();
 
-    responseCookies.set('status', responseData.statusCode);
+      responseCookies.set('status', responseData.statusCode);
 
-    if (responseData.statusCode !== 401) {
-      user = responseData;
-      responseCookies.set('email', responseData.email);
-    } else {
-      // requestCookies.getAll().map((cookie) => {
-      //   if (cookie.name !== 'email') {
-      //     responseCookies.delete(cookie.name);
-      //   }
-      // });
-    }
-  } catch (_) {}
-  // }
+      if (responseData.statusCode !== 401) {
+        user = responseData;
+        responseCookies.set('email', responseData.email);
+      } else {
+        requestCookies.getAll().map((cookie) => {
+          if (cookie.name !== 'email') {
+            responseCookies.delete(cookie.name);
+          }
+        });
+      }
+    } catch (_) {}
+  }
 
   const isAuth = user !== undefined;
 
