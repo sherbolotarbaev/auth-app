@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
@@ -10,17 +9,8 @@ export async function middleware(request: NextRequest) {
   const responseCookies = response.cookies;
   const requestCookies = request.cookies;
   const next = decodeURIComponent(searchParams.get('next') ?? '/');
-  const querySession = searchParams.get('session');
-  const session = cookies().get('session');
+  const session = requestCookies.get('session');
   const xff = `${request.headers.get('x-forwarded-for')?.split(',')[0]}`;
-
-  if (pathname === '/redirect') {
-    if (querySession) {
-      responseCookies.set('session-middleware', querySession);
-    }
-
-    return response;
-  }
 
   let user: User | undefined;
 
@@ -35,6 +25,7 @@ export async function middleware(request: NextRequest) {
       const response = await fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers,
+        credentials: 'same-origin',
       });
 
       const responseData = await response.json();
