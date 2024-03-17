@@ -11,7 +11,11 @@ const nextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['zwolzmcodtrfbcofztei.supabase.co', 'localhost:3000'],
+    domains: [
+      'zwolzmcodtrfbcofztei.supabase.co',
+      'lh3.googleusercontent.com',
+      'localhost:3000',
+    ],
   },
 
   experimental: {
