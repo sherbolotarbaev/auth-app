@@ -118,7 +118,7 @@ export function RegisterForm() {
                   onClick={() => handleClearInput('firstName')}
                   style={
                     !isLoading && firstName && firstName.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />
@@ -163,7 +163,7 @@ export function RegisterForm() {
                   onClick={() => handleClearInput('lastName')}
                   style={
                     !isLoading && lastName && lastName.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />
@@ -200,7 +200,7 @@ export function RegisterForm() {
                   onClick={() => handleClearInput('email')}
                   style={
                     !isLoading && email && email.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />
@@ -253,7 +253,7 @@ export function RegisterForm() {
                   onClick={() => handleClearInput('password')}
                   style={
                     !isLoading && password && password.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />

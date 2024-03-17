@@ -35,7 +35,7 @@ export function Message({ message, ...props }: Readonly<Props>) {
           {assistant ? (
             <AiSvg style={{ fontSize: '1.45rem' }} />
           ) : (
-            <UserSvg style={{ fontSize: '1.45rem', fill: '#fff' }} />
+            <UserSvg style={{ fontSize: '1.45rem', fill: 'var(--accent-8)' }} />
           )}
         </span>
 

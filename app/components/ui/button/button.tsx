@@ -84,14 +84,14 @@ export function Button({
         <>
           <LoadSvg
             className={scss.load}
-            style={style === 'dark' ? { fill: '#4a4d55' } : undefined}
+            style={style === 'dark' ? { fill: 'var(--accent-5)' } : undefined}
           />
           {load}
         </>
       ) : (
         <LoadSvg
           className={scss.load}
-          style={style === 'dark' ? { fill: '#4a4d55' } : undefined}
+          style={style === 'dark' ? { fill: 'var(--accent-5)' } : undefined}
         />
       );
     }

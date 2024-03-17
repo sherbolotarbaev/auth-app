@@ -20,7 +20,7 @@ import {
   SendSvg,
   StopSvg,
 } from '@/public/svg';
-import styles from '@/app/components/scss/conversation.module.scss';
+import scss from '@/app/components/scss/conversation.module.scss';
 
 const faqs: string[] = ["Who's Sher? 🧐", 'Give some information about Sher'];
 
@@ -197,18 +197,18 @@ export function Conversation() {
       {messages.length > 0 &&
         messages.map((message, idx) => <Message message={message} key={idx} />)}
 
-      <div className={styles.conversation}>
+      <div className={scss.conversation}>
         {error && (
-          <div className={styles.text}>
-            <div className={styles.error}>{error}</div>
+          <div className={scss.text}>
+            <div className={scss.error}>{error}</div>
           </div>
         )}
 
-        <div className={styles.faqs}>
+        <div className={scss.faqs}>
           {faqs.map((faq, idx) => (
             <span
               key={idx}
-              className={styles.faq}
+              className={scss.faq}
               onClick={() => {
                 setInput(faq);
                 editor?.chain().focus().setContent(faq).run();
@@ -219,8 +219,8 @@ export function Conversation() {
           ))}
         </div>
 
-        <div className={styles.form}>
-          <div className={styles.icons}>
+        <div className={scss.form}>
+          <div className={scss.icons}>
             {/* <input
             ref={fileInputRef}
             type="file"
@@ -235,8 +235,8 @@ export function Conversation() {
           <ImageSvg
             className={
               images && images.length >= 5
-                ? `${styles.icon} ${styles.disabled}`
-                : styles.icon
+                ? `${scss.icon} ${scss.disabled}`
+                : scss.icon
             }
             style={{ fontSize: "1.45rem" }}
             onClick={setFile}
@@ -244,46 +244,46 @@ export function Conversation() {
 
             {!recording && !transcoding ? (
               <MicrophoneSvg
-                className={styles.icon}
+                className={scss.icon}
                 onClick={startRecording}
-                style={{ fontSize: '1.55rem', fill: '#4a4d55' }}
+                style={{ fontSize: '1.55rem', fill: 'var(--accent-5)' }}
               />
             ) : transcoding ? (
               <LoadSvg
-                className={`${styles.icon} ${styles.load}`}
-                style={{ fontSize: '1.55rem', fill: '#4a4d55' }}
+                className={`${scss.icon} ${scss.load}`}
+                style={{ fontSize: '1.55rem', fill: 'var(--accent-5)' }}
               />
             ) : (
               <StopSvg
-                className={styles.icon}
+                className={scss.icon}
                 onClick={stopRecording}
                 style={{ fontSize: '1.55rem', fill: 'red' }}
               />
             )}
           </div>
 
-          <EditorContent editor={editor} className={styles.editor} />
+          <EditorContent editor={editor} className={scss.editor} />
 
-          <div className={styles.icons}>
+          <div className={scss.icons}>
             {disabled && !isLoading ? (
               <SendSvg
-                className={`${styles.icon} ${styles.disabled}`}
+                className={`${scss.icon} ${scss.disabled}`}
                 style={{
                   fontSize: '1.55rem',
-                  fill: '#4a4d55',
+                  fill: 'var(--accent-5)',
                 }}
               />
             ) : isLoading ? (
               <LoadSvg
-                className={`${styles.icon} ${styles.load}`}
-                style={{ fontSize: '1.55rem', fill: '#4a4d55' }}
+                className={`${scss.icon} ${scss.load}`}
+                style={{ fontSize: '1.55rem', fill: 'var(--accent-5)' }}
               />
             ) : (
               <SendSvg
-                className={styles.icon}
+                className={scss.icon}
                 style={{
                   fontSize: '1.55rem',
-                  fill: '#fafafa',
+                  fill: 'var(--accent-8)',
                 }}
                 onClick={() => newConversation(input)}
               />

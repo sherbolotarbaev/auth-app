@@ -109,7 +109,7 @@ export function ForgotForm() {
                   onClick={() => handleClearInput('email')}
                   style={
                     !isLoading && email && email.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />

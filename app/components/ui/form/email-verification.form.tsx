@@ -106,7 +106,7 @@ export function EmailVerificationForm() {
                   onClick={() => handleClearInput('code')}
                   style={
                     !isLoading && code && code.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />

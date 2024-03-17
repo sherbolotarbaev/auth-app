@@ -117,7 +117,7 @@ export function LoginForm() {
                   onClick={() => handleClearInput('emailOrUsername')}
                   style={
                     !isLoading && emailOrUsername && emailOrUsername.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />
@@ -162,7 +162,7 @@ export function LoginForm() {
                   onClick={() => handleClearInput('password')}
                   style={
                     !isLoading && password && password.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />

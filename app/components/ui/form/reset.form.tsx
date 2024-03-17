@@ -114,7 +114,7 @@ export function ResetForm() {
                   onClick={() => handleClearInput('password')}
                   style={
                     !isLoading && password && password.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />
@@ -155,7 +155,7 @@ export function ResetForm() {
                   onClick={() => handleClearInput('confirmPassword')}
                   style={
                     !isLoading && confirmPassword && confirmPassword.length > 0
-                      ? { fontSize: '1.1rem', fill: '#fff' }
+                      ? { fontSize: '1.1rem', fill: 'var(--accent-8)' }
                       : { display: 'none' }
                   }
                 />

@@ -9,6 +9,11 @@ const nextConfig = {
     return config;
   },
 
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    domains: ['zwolzmcodtrfbcofztei.supabase.co', 'localhost:3000'],
+  },
+
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
