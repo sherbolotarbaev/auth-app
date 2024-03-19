@@ -15,7 +15,9 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/redirect') {
     if (querySession) {
-      responseCookies.set('session-middleware', querySession);
+      responseCookies.set('session-middleware', querySession, {
+        maxAge: 30 * 60 * 1000,
+      });
     }
 
     return response;
@@ -34,6 +36,7 @@ export async function middleware(request: NextRequest) {
       const response = await fetch(`${apiUrl}/me`, {
         method: 'GET',
         headers,
+        credentials: 'include',
       });
 
       const responseData = await response.json();
@@ -95,14 +98,12 @@ export async function middleware(request: NextRequest) {
     pathname !== '/password/forgot' &&
     pathname !== '/password/reset' &&
     pathname !== '/register' &&
-    pathname !== '/logout' &&
-    pathname !== '/'
+    pathname !== '/logout'
   ) {
-    // const redirectUrl = new URL(
-    //   pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
-    //   url,
-    // );
-    const redirectUrl = new URL('/login', url);
+    const redirectUrl = new URL(
+      pathname !== '/' ? `/login?next=${decodeURIComponent(pathname)}` : '/login',
+      url,
+    );
     return NextResponse.redirect(redirectUrl);
   }
 
